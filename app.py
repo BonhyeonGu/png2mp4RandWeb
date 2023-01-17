@@ -57,6 +57,7 @@ def imagesToMp4(file_list):
 def routine(locale_inp, locale_out):
     print("%s start: routine" % (datetime.now().strftime('%Y-%m-%d %H:%M:%S')))
     file_list = pickImageLocale(locale_inp)#!
+    print(file_list)
     resize(file_list)#!
     print("%s start: ffmpeg" % (datetime.now().strftime('%Y-%m-%d %H:%M:%S')))
     imagesToMp4(file_list)#!
