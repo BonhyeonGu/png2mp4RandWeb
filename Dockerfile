@@ -1,4 +1,6 @@
 FROM nginx
+LABEL email="bonhyeon.gu@9bon.org"
+LABEL name="BonhyeonGu"
 ENV TZ=Asia/Seoul
 ARG DEBIAN_FRONTEND=noninteractive
 RUN apt-get update && apt-get upgrade -y && apt update
