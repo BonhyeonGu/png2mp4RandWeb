@@ -4,15 +4,20 @@ import numpy as np
 import cv2
 import random
 
+allDirsRet = []
 def allDirs(rootdir):
+    global allDirsRet
     for file in os.listdir(rootdir):
         d = os.path.join(rootdir, file)
         if os.path.isdir(d):
-            print(d)
+            allDirsRet.append(d)
             allDirs(d)
 
 def pickImageLocale(locale_inp, pick_count=5):
-    dir_list = allDirs(locale_inp)
+    allDirs(locale_inp)
+    global allDirsRet
+
+    dir_list = allDirsRet
     file_list = []
     for dir in dir_list:
         dir2fileName_list = os.listdir(dir)
@@ -55,7 +60,7 @@ def routine(locale_inp, locale_out):
     print("%s start: ffmpeg" % (datetime.now().strftime('%Y-%m-%d %H:%M:%S')))
     imagesToMp4(file_list)#!
     print("%s end: ffmpeg" % (datetime.now().strftime('%Y-%m-%d %H:%M:%S')))
-    os.system('cp ./out0.mp4 locale_out')
+    os.system('cp ./out0.mp4 %s' % (locale_out))
     print("%s end: routine" % (datetime.now().strftime('%Y-%m-%d %H:%M:%S')))
 
 if __name__ == "__main__":
