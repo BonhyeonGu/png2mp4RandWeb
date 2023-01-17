@@ -7,7 +7,7 @@ RUN apt-get update && apt-get upgrade -y && apt update
 RUN apt install -y ffmpeg
 
 #Time
-RUN apt-get install -y git nano tzdata openssh-server tzdata python3 python3-pip
+RUN apt-get install -y git tzdata python3 python3-pip
 RUN apt install -y python3-opencv
 RUN pip3 install numpy
 RUN echo $TZ > /etc/timezone && \
