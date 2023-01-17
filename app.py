@@ -60,6 +60,7 @@ def routine(locale_inp, locale_out):
     print("%s start: ffmpeg" % (datetime.now().strftime('%Y-%m-%d %H:%M:%S')))
     imagesToMp4(file_list)#!
     print("%s end: ffmpeg" % (datetime.now().strftime('%Y-%m-%d %H:%M:%S')))
+    os.system('rm -rf ./*.png')
     os.system('cp ./out0.mp4 %s' % (locale_out))
     print("%s end: routine" % (datetime.now().strftime('%Y-%m-%d %H:%M:%S')))
 
