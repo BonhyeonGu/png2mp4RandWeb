@@ -21,11 +21,12 @@ def pickImageLocale(locale_inp, pick_count=5):
     dir_list = allDirsRet
     file_list = []
     for dir in dir_list:
+        if "@eaDir" in dir:#sinologe bug
+            continue
         dir2fileName_list = os.listdir(dir)
         for dir2fileName in dir2fileName_list:
             if dir2fileName.endswith(".png"):
-                if "@eaDir" in dir2fileName:#sinologe bug
-                    continue
+                
                 file_list.append((dir2fileName, dir+'/'+dir2fileName))
 
     file_list = random.sample(file_list, pick_count)
