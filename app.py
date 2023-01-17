@@ -1,4 +1,5 @@
 from datetime import datetime
+from time import sleep
 import os
 import numpy as np
 import cv2
@@ -74,4 +75,7 @@ if __name__ == "__main__":
 
     while(True):
         if(int(datetime.now().hour) == 5):
+            routine(locale_inp, locale_out)
+        sleep(600)
+        if("SKIP" in os.listdir('./')):
             routine(locale_inp, locale_out)
