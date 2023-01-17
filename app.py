@@ -73,9 +73,13 @@ if __name__ == "__main__":
         #/usr/share/nginx/html
     routine(locale_inp, locale_out)
 
+    flag = True
     while(True):
-        if(int(datetime.now().hour) == 5):
+        if(int(datetime.now().hour) == 5 and flag):
             routine(locale_inp, locale_out)
+            flag = False
+        else:
+            flag = True
         sleep(600)
         if("SKIP" in os.listdir('./')):
             routine(locale_inp, locale_out)
