@@ -1,2 +1,2 @@
-C:\Users\8whwh
-./
+/source
+/usr/share/nginx/html

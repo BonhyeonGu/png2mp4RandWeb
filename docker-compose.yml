@@ -11,5 +11,6 @@ services:
       - "12000:22"
     volumes:
       - ./cmd:/root/p/cmd
+      - /a:/source
     environment:
         TZ: "Asia/Seoul"
