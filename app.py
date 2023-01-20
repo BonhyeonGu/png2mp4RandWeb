@@ -85,9 +85,9 @@ if __name__ == "__main__":
         else:
             flag = True
         sleep(600)
-        if("SKIP" in os.listdir('./')):
+        if("SKIP" in os.listdir('./cmd/')):
             routine(locale_inp, locale_out)
-        if("SKIPONLYONE" in os.listdir('./')):
+        if("SKIPONLYONE" in os.listdir('./cmd/')):
             routine(locale_inp, locale_out)
             os.system('rm SKIPONLYONE')
 
