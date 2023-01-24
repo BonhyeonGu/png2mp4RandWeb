@@ -9,7 +9,7 @@ RUN apt install -y ffmpeg
 #Time-------------------------------------------------------
 RUN apt-get install -y git tzdata python3 python3-pip
 RUN apt install -y python3-opencv
-RUN pip3 install numpy paramiko
+RUN pip3 install numpy pysftp
 RUN echo $TZ > /etc/timezone && \
     rm /etc/localtime && \
     ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && \

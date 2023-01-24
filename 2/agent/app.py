@@ -5,7 +5,7 @@ import numpy as np
 import cv2
 import random
 
-import paramiko
+import pysftp
 
 allDirsRet = []
 def allDirs(rootdir):
@@ -69,20 +69,11 @@ def routine(locale_inp, sftp_host, sftp_port, sftp_id, sftp_pw, remote_out):
     print("%s end: ffmpeg" % (datetime.now().strftime('%Y-%m-%d %H:%M:%S')))
     os.system('rm -rf ./*.png')
 
-    transprot = paramiko.transport.Transport(sftp_host, sftp_port)
-    print(sftp_host)
-    print(sftp_port)
-    print(sftp_id)
-    print(sftp_pw)
-    
-    transprot.connect(username = sftp_id, password = sftp_pw)
-    sftp = paramiko.SFTPClient.from_transport(transprot)
-
-    localpath  = './out0.mp4'
-    remotepath = '%s/out0.mp4' % (remote_out)
-    sftp.put(localpath, remotepath)
+    cnopts = pysftp.CnOpts()
+    cnopts.hostkeys = None
+    with pysftp.Connection(sftp_host, port=sftp_port, username=sftp_id, password=sftp_pw, cnopts=cnopts) as sftp:
+        sftp.put('./out0.mp4', remote_out+'out0.mp4')
     sftp.close()
-    transprot.close()
     
     print("%s end: routine" % (datetime.now().strftime('%Y-%m-%d %H:%M:%S')))
 
