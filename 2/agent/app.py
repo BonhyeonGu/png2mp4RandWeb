@@ -70,6 +70,11 @@ def routine(locale_inp, sftp_host, sftp_port, sftp_id, sftp_pw, remote_out):
     os.system('rm -rf ./*.png')
 
     transprot = paramiko.transport.Transport(sftp_host, sftp_port)
+    print(sftp_host)
+    print(sftp_port)
+    print(sftp_id)
+    print(sftp_pw)
+    
     transprot.connect(username = sftp_id, password = sftp_pw)
     sftp = paramiko.SFTPClient.from_transport(transprot)
 
