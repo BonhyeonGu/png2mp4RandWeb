@@ -76,7 +76,7 @@ def routine(locale_inp, sftp_host, sftp_port, sftp_id, sftp_pw, remote_out):
     sftp = paramiko.SFTPClient.from_transport(transprot)
 
     localpath  = './out0.mp4'
-    remotepath = '%s/out0.mp4 %s' % (remote_out)
+    remotepath = '%s/out0.mp4' % (remote_out)
     sftp.put(localpath, remotepath)
     sftp.close()
     transprot.close()
