@@ -89,5 +89,5 @@ if __name__ == "__main__":
             routine(locale_inp, locale_out)
         if("SKIPONLYONE" in os.listdir('./cmd/')):
             routine(locale_inp, locale_out)
-            os.system('rm SKIPONLYONE')
+            os.system('rm ./cmd/SKIPONLYONE')
 
