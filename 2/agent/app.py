@@ -69,8 +69,9 @@ def routine(locale_inp, sftp_host, sftp_port, sftp_id, sftp_pw, remote_out):
     print("%s end: ffmpeg" % (datetime.now().strftime('%Y-%m-%d %H:%M:%S')))
     os.system('rm -rf ./*.png')
 
-    transprot = paramiko.transport.Transport(sftp_host, int(sftp_port))
+    transprot = paramiko.transport.Transport(sftp_host, sftp_port)
     transprot.connect(username = sftp_id, password = sftp_pw)
+    print
     sftp = paramiko.SFTPClient.from_transport(transprot)
 
     localpath  = './out0.mp4'
