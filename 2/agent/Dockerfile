@@ -28,4 +28,4 @@ RUN git clone https://github.com/BonhyeonGu/png2mp4RandWeb p
 
 WORKDIR /root/p
 COPY ./locale.txt ./
-ENTRYPOINT ["/bin/sh", "-c" , "service ssh start && service nginx start && python3 app.py"]
+ENTRYPOINT ["/bin/sh", "-c" , "service ssh start && python3 app.py"]
