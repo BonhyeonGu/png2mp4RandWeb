@@ -71,7 +71,7 @@ def routine(locale_inp, sftp_host, sftp_port, sftp_id, sftp_pw, remote_out):
 
     cnopts = pysftp.CnOpts()
     cnopts.hostkeys = None
-    with pysftp.Connection(sftp_host, port=int(sftp_port), username=sftp_id, password=sftp_pw, cnopts=cnopts) as sftp:
+    with pysftp.Connection(sftp_host, port=sftp_port, username=sftp_id, password=sftp_pw, cnopts=cnopts) as sftp:
         sftp.put('./out0.mp4', remote_out+'out0.mp4')
     sftp.close()
     
@@ -85,7 +85,7 @@ if __name__ == "__main__":
         
         t = fs[1].split(':')
         sftp_host = t[0]
-        sftp_port = t[1]
+        sftp_port = int(t[1])
 
         t = fs[2].split('/')
         sftp_id = t[0]
@@ -98,14 +98,14 @@ if __name__ == "__main__":
     flag = True
     while(True):
         if(int(datetime.now().hour) == 5 and flag):
-            routine(locale_inp, remote_out)
+            routine(locale_inp, sftp_host, sftp_port, sftp_id, sftp_pw, remote_out)
             flag = False
         else:
             flag = True
         sleep(600)
         if("SKIP" in os.listdir('./cmd/')):
-            routine(locale_inp, remote_out)
+            routine(locale_inp, sftp_host, sftp_port, sftp_id, sftp_pw, remote_out)
         if("SKIPONLYONE" in os.listdir('./cmd/')):
-            routine(locale_inp, remote_out)
+            routine(locale_inp, sftp_host, sftp_port, sftp_id, sftp_pw, remote_out)
             os.system('rm SKIPONLYONE')
 
