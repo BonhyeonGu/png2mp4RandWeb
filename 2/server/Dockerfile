@@ -20,9 +20,4 @@ RUN echo "PermitRootLogin yes \nPasswordAuthentication yes \nChallengeResponseAu
 RUN echo "root:!@@!@!@sd78S21DFfsd!!@@dsaas21d!!98DSFDS@O21O!!!@!!@" | chpasswd
 #-----------------------------------------------------------
 
-WORKDIR /root
-RUN git clone https://github.com/BonhyeonGu/png2mp4RandWeb p
-
-WORKDIR /root/p
-COPY ./locale.txt ./
-ENTRYPOINT ["/bin/sh", "-c" , "service ssh start && service nginx start && python3 app.py"]
+ENTRYPOINT ["/bin/sh", "-c" , "service ssh start && service nginx start && tail -f /dev/null"]
