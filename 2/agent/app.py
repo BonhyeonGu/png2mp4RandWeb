@@ -34,7 +34,7 @@ def pickImageLocale(locale_inp, pick_count=5):
     file_list = random.sample(file_list, pick_count)
     return file_list
 
-def resize(file_list, w=1280, h=720):
+def resizeAndPutText(file_list, putName=True, w=1920, h=1080):
     size=(w, h)
     for file in file_list:
         base_pic=np.zeros((size[1],size[0],3),np.uint8)
@@ -49,6 +49,11 @@ def resize(file_list, w=1280, h=720):
         pic1 = cv2.resize(pic1,dsize=sizeas)
         base_pic[int(size[1]/2-sizeas[1]/2):int(size[1]/2+sizeas[1]/2),
         int(size[0]/2-sizeas[0]/2):int(size[0]/2+sizeas[0]/2),:]=pic1
+
+        if putName:
+            ctime = datetime.fromtimestamp(os.path.getctime(file[1])).strftime('%Y.%m.%d %H:%M')
+            cv2.putText(base_pic,ctime,(1580,1040),cv2.FONT_HERSHEY_SCRIPT_COMPLEX,1,(0,0,0),4,cv2.LINE_AA)
+            cv2.putText(base_pic,ctime,(1580,1040),cv2.FONT_HERSHEY_SCRIPT_COMPLEX,1,(255,255,255),1,cv2.LINE_AA)
         cv2.imwrite('./' + file[0], base_pic)
 
 def imagesToMp4(file_list):
@@ -63,7 +68,7 @@ def routine(locale_inp, sftp_host, sftp_port, sftp_id, sftp_pw, remote_out):
     print("%s start: routine" % (datetime.now().strftime('%Y-%m-%d %H:%M:%S')))
     file_list = pickImageLocale(locale_inp)#!
     print(file_list)
-    resize(file_list)#!
+    resizeAndPutText(file_list)#!
     print("%s start: ffmpeg" % (datetime.now().strftime('%Y-%m-%d %H:%M:%S')))
     imagesToMp4(file_list)#!
     print("%s end: ffmpeg" % (datetime.now().strftime('%Y-%m-%d %H:%M:%S')))
