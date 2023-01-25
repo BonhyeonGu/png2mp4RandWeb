@@ -107,5 +107,5 @@ if __name__ == "__main__":
             routine(locale_inp, sftp_host, sftp_port, sftp_id, sftp_pw, remote_out)
         if("SKIPONLYONE" in os.listdir('./cmd/')):
             routine(locale_inp, sftp_host, sftp_port, sftp_id, sftp_pw, remote_out)
-            os.system('rm SKIPONLYONE')
+            os.system('rm ./cmd/SKIPONLYONE')
 
