@@ -21,7 +21,7 @@ def pickImageLocale(locale_inp, pick_count=5):
     dir_list = allDirsRet
     file_list = []
     for dir in dir_list:
-        if "@eaDir" in dir:#sinologe bug
+        if "@eaDir" in dir:#Synology bug
             continue
         dir2fileName_list = os.listdir(dir)
         for dir2fileName in dir2fileName_list:
@@ -50,8 +50,8 @@ def resizeAndPutText(file_list, putName=True, w=1920, h=1080):
 
         if putName:
             ctime = datetime.fromtimestamp(os.path.getctime(file[1])).strftime('%Y.%m.%d %H:%M')
-            cv2.putText(base_pic,ctime,(1580,1040),cv2.FONT_HERSHEY_SCRIPT_COMPLEX,1,(0,0,0),4,cv2.LINE_AA)
-            cv2.putText(base_pic,ctime,(1580,1040),cv2.FONT_HERSHEY_SCRIPT_COMPLEX,1,(255,255,255),1,cv2.LINE_AA)
+            cv2.putText(base_pic,ctime,(1585,1040),cv2.FONT_HERSHEY_SCRIPT_COMPLEX,1,(0,0,0),4,cv2.LINE_AA)
+            cv2.putText(base_pic,ctime,(1585,1040),cv2.FONT_HERSHEY_SCRIPT_COMPLEX,1,(255,255,255),1,cv2.LINE_AA)
         cv2.imwrite('./' + file[0], base_pic)
 
 def imagesToMp4(file_list):
