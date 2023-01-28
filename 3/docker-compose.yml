@@ -18,5 +18,5 @@ services:
       - "/dev/fuse"
     cap_add:
       - SYS_ADMIN
-    security-opt:
+    security_opt:
       - apparmor:unconfined
