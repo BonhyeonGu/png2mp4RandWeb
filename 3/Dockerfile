@@ -28,4 +28,4 @@ RUN git clone https://github.com/BonhyeonGu/png2mp4RandWeb p
 
 WORKDIR /root/p/2/agent
 COPY ./locale.txt ./
-ENTRYPOINT ["/bin/sh", "-c" , "rclone mount --config=/root/.config/rclone/rclone.conf --user-agent=sauberlich --umask=002 --gid=100 --uid=1000 --allow-other --timeout=1h - -poll-interval=10s --dir-cache-time=5000h --cache-dir/mnt/rclone/cache --drive-pacer-min-sleep 10ms --drive-pacer-burst 1000 --vfs-cache- mode=off --vfs-cache-max-size=1G --vfs-cache-max-age=5000h --vfs-cache-poll-interval 5m --vfs-read-ahead 2G nextcloud: /mnt/nextcloud/ date && service ssh start && service nginx start && python3 app.py"]
+ENTRYPOINT ["/bin/sh", "-c" , "service ssh start && service nginx start && python3 app.py"]
