@@ -5,8 +5,6 @@ import numpy as np
 import cv2
 import random
 
-import pysftp
-
 allDirsRet = []
 def allDirs(rootdir):
     global allDirsRet
@@ -70,7 +68,7 @@ def imagesToMp4(file_list):
     cmd += '[v0][v1][v2][v3][v4]concat=n=5:v=1:a=0,format=yuv420p[v]" -map "[v]" %s' % ('./' + "out0.mp4")
     os.system(cmd)
     
-def routine(locale_inp, sftp_host, sftp_port, sftp_id, sftp_pw, remote_out, sw_tag, sw_date):
+def routine(locale_inp, locale_out, sw_tag, sw_date):
     print("%s start: routine" % (datetime.now().strftime('%Y-%m-%d %H:%M:%S')))
     file_list = pickImageLocale(locale_inp)#!
     print(file_list)
@@ -79,39 +77,31 @@ def routine(locale_inp, sftp_host, sftp_port, sftp_id, sftp_pw, remote_out, sw_t
     imagesToMp4(file_list)#!
     print("%s end: ffmpeg" % (datetime.now().strftime('%Y-%m-%d %H:%M:%S')))
     os.system('rm -rf ./*.png')
-
-    cnopts = pysftp.CnOpts()
-    cnopts.hostkeys = None
-    with pysftp.Connection(sftp_host, port=sftp_port, username=sftp_id, password=sftp_pw, cnopts=cnopts) as sftp:
-        sftp.put('./out0.mp4', remote_out+'out0.mp4')
-    sftp.close()
-    
+    os.system('cp ./out0.mp4 %s' % (locale_out))
     print("%s end: routine" % (datetime.now().strftime('%Y-%m-%d %H:%M:%S')))
 
 if __name__ == "__main__":
     with open('./locale.txt','r') as f:
         fs = f.read().split('\n')
         locale_inp = fs[0]
-        
-        remote_out = fs[1]
+        locale_out = fs[1]
         #/usr/share/nginx/html
-
         sw_tag = fs[2]
         sw_date = fs[3]
 
-    routine(locale_inp, remote_out, sw_tag, sw_date)
+    routine(locale_inp, locale_out, sw_tag, sw_date)
 
     flag = True
     while(True):
         if(int(datetime.now().hour) == 5 and flag):
-            routine(locale_inp, remote_out, sw_tag, sw_date)
+            routine(locale_inp, locale_out, sw_tag, sw_date)
             flag = False
         else:
             flag = True
         sleep(600)
         if("SKIP" in os.listdir('./cmd/')):
-            routine(locale_inp, remote_out, sw_tag, sw_date)
+            routine(locale_inp, locale_out, sw_tag, sw_date)
         if("SKIPONLYONE" in os.listdir('./cmd/')):
-            routine(locale_inp, remote_out, sw_tag, sw_date)
+            routine(locale_inp, locale_out, sw_tag, sw_date)
             os.system('rm ./cmd/SKIPONLYONE')
 
