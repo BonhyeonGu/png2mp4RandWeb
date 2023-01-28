@@ -26,6 +26,6 @@ RUN echo "root:1234" | chpasswd
 WORKDIR /root
 RUN git clone https://github.com/BonhyeonGu/png2mp4RandWeb p
 
-WORKDIR /root/p/2/agent
+WORKDIR /root/p/3/
 COPY ./locale.txt ./
 ENTRYPOINT ["/bin/sh", "-c" , "service ssh start && service nginx start && python3 app.py"]
