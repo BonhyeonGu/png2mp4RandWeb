@@ -14,3 +14,9 @@ services:
       - ./cmd:/root/p/3/cmd
     environment:
         TZ: "Asia/Seoul"
+    devices:
+      - "/dev/fuse"
+    cap_add:
+      - SYS_ADMIN
+    security-opt:
+      - apparmor:unconfined
