@@ -93,33 +93,25 @@ if __name__ == "__main__":
         fs = f.read().split('\n')
         locale_inp = fs[0]
         
-        t = fs[1].split(':')
-        sftp_host = t[0]
-        sftp_port = int(t[1])
-
-        t = fs[2].split('/')
-        sftp_id = t[0]
-        sftp_pw = t[1]
-
-        remote_out = fs[3]
+        remote_out = fs[1]
         #/usr/share/nginx/html
 
-        sw_tag = fs[4]
-        sw_date = fs[5]
+        sw_tag = fs[2]
+        sw_date = fs[3]
 
-    routine(locale_inp, sftp_host, sftp_port, sftp_id, sftp_pw, remote_out, sw_tag, sw_date)
+    routine(locale_inp, remote_out, sw_tag, sw_date)
 
     flag = True
     while(True):
         if(int(datetime.now().hour) == 5 and flag):
-            routine(locale_inp, sftp_host, sftp_port, sftp_id, sftp_pw, remote_out, sw_tag, sw_date)
+            routine(locale_inp, remote_out, sw_tag, sw_date)
             flag = False
         else:
             flag = True
         sleep(600)
         if("SKIP" in os.listdir('./cmd/')):
-            routine(locale_inp, sftp_host, sftp_port, sftp_id, sftp_pw, remote_out, sw_tag, sw_date)
+            routine(locale_inp, remote_out, sw_tag, sw_date)
         if("SKIPONLYONE" in os.listdir('./cmd/')):
-            routine(locale_inp, sftp_host, sftp_port, sftp_id, sftp_pw, remote_out, sw_tag, sw_date)
+            routine(locale_inp, remote_out, sw_tag, sw_date)
             os.system('rm ./cmd/SKIPONLYONE')
 
