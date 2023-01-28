@@ -89,8 +89,6 @@ if __name__ == "__main__":
         sw_tag = fs[2]
         sw_date = fs[3]
 
-    routine(locale_inp, locale_out, sw_tag, sw_date)
-
     while(True):
         if("SKIP" in os.listdir('./cmd/')):
             routine(locale_inp, locale_out, sw_tag, sw_date)
