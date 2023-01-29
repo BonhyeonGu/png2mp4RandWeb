@@ -23,10 +23,11 @@ RUN echo "PermitRootLogin yes \nPasswordAuthentication yes \nChallengeResponseAu
 RUN echo "root:1234" | chpasswd
 #-----------------------------------------------------------
 
-RUN mkdir /source
 WORKDIR /root
 RUN git clone https://github.com/BonhyeonGu/png2mp4RandWeb p
 
 WORKDIR /root/p/3/
+RUN mkdir cmd
+RUN mkdir /source
 COPY ./locale.txt ./
 ENTRYPOINT ["/bin/sh", "-c" , "service ssh start && service nginx start && python3 app.py"]

@@ -90,7 +90,7 @@ if __name__ == "__main__":
         sw_date = fs[3]
 
     while(True):
-        if("SKIP" in os.listdir('./cmd/')):
+        if("START" in os.listdir('./cmd/')):
             routine(locale_inp, locale_out, sw_tag, sw_date)
         sleep(600)
 
