@@ -110,17 +110,7 @@ if __name__ == "__main__":
 
     routine(locale_inp, sftp_host, sftp_port, sftp_id, sftp_pw, remote_out, sw_tag, sw_date)
 
-    flag = True
     while(True):
-        if(int(datetime.now().hour) == 5 and flag):
-            routine(locale_inp, sftp_host, sftp_port, sftp_id, sftp_pw, remote_out, sw_tag, sw_date)
-            flag = False
-        else:
-            flag = True
         sleep(600)
-        if("SKIP" in os.listdir('./cmd/')):
+        if("START" in os.listdir('./cmd/')):
             routine(locale_inp, sftp_host, sftp_port, sftp_id, sftp_pw, remote_out, sw_tag, sw_date)
-        if("SKIPONLYONE" in os.listdir('./cmd/')):
-            routine(locale_inp, sftp_host, sftp_port, sftp_id, sftp_pw, remote_out, sw_tag, sw_date)
-            os.system('rm ./cmd/SKIPONLYONE')
-
