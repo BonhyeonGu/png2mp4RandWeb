@@ -92,23 +92,25 @@ def routine(locale_inp, sftp_host, sftp_port, sftp_id, sftp_pw, remote_out, sw_t
 if __name__ == "__main__":
     with open('./locale.txt','r') as f:
         fs = f.read().split('\n')
-        locale_inp = fs[0]
+
+        interTime = int(fs[0])
+        locale_inp = fs[1]
         
-        t = fs[1].split(':')
+        t = fs[2].split(':')
         sftp_host = t[0]
         sftp_port = int(t[1])
 
-        t = fs[2].split('/')
+        t = fs[3].split('/')
         sftp_id = t[0]
         sftp_pw = t[1]
 
-        remote_out = fs[3]
+        remote_out = fs[4]
         #/usr/share/nginx/html
 
-        sw_tag = fs[4]
-        sw_date = fs[5]
+        sw_tag = fs[5]
+        sw_date = fs[6]
 
     while(True):
-        sleep(600)
+        sleep(interTime)
         if("START" in os.listdir('./cmd/')):
             routine(locale_inp, sftp_host, sftp_port, sftp_id, sftp_pw, remote_out, sw_tag, sw_date)

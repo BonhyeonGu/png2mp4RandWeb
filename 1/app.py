@@ -77,8 +77,9 @@ def routine(locale_inp, locale_out):
 if __name__ == "__main__":
     with open('./locale.txt','r') as f:
         fs = f.read().split('\n')
-        locale_inp = fs[0]
-        locale_out = fs[1]
+        interTime = int(fs[0])
+        locale_inp = fs[1]
+        locale_out = fs[2]
         #/usr/share/nginx/html
     routine(locale_inp, locale_out)
 
@@ -89,7 +90,7 @@ if __name__ == "__main__":
             flag = False
         else:
             flag = True
-        sleep(600)
+        sleep(interTime)
         if("SKIP" in os.listdir('./cmd/')):
             routine(locale_inp, locale_out)
         if("SKIPONLYONE" in os.listdir('./cmd/')):

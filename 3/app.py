@@ -83,14 +83,15 @@ def routine(locale_inp, locale_out, sw_tag, sw_date):
 if __name__ == "__main__":
     with open('./locale.txt','r') as f:
         fs = f.read().split('\n')
-        locale_inp = fs[0]
-        locale_out = fs[1]
+        interTime = int(fs[0])
+        locale_inp = fs[1]
+        locale_out = fs[2]
         #/usr/share/nginx/html
-        sw_tag = fs[2]
-        sw_date = fs[3]
+        sw_tag = fs[3]
+        sw_date = fs[4]
 
     while(True):
         if("START" in os.listdir('./cmd/')):
             routine(locale_inp, locale_out, sw_tag, sw_date)
-        sleep(600)
+        sleep(interTime)
 
