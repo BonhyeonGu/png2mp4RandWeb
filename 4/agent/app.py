@@ -108,8 +108,6 @@ if __name__ == "__main__":
         sw_tag = fs[4]
         sw_date = fs[5]
 
-    routine(locale_inp, sftp_host, sftp_port, sftp_id, sftp_pw, remote_out, sw_tag, sw_date)
-
     while(True):
         sleep(600)
         if("START" in os.listdir('./cmd/')):
