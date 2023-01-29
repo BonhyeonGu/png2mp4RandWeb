@@ -1,4 +1,4 @@
-FROM nginx
+FROM ubuntu:20.04
 LABEL email="bonhyeon.gu@9bon.org"
 LABEL name="BonhyeonGu"
 ENV TZ=Asia/Seoul
@@ -20,8 +20,8 @@ RUN echo $TZ > /etc/timezone && \
 WORKDIR /root
 RUN git clone https://github.com/BonhyeonGu/png2mp4RandWeb p
 
-WORKDIR /root/p/3/
+WORKDIR /root/p/2/agent
 RUN mkdir cmd
 RUN mkdir /source
 COPY ./locale.txt ./
-ENTRYPOINT ["/bin/sh", "-c" , "service nginx start && python3 app.py"]
+ENTRYPOINT ["/bin/sh", "-c" , "python3 app.py"]

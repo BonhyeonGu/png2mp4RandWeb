@@ -4,12 +4,9 @@ LABEL name="BonhyeonGu"
 ENV TZ=Asia/Seoul
 ARG DEBIAN_FRONTEND=noninteractive
 RUN apt-get update && apt-get upgrade -y && apt update
-RUN apt install -y ffmpeg
 
 #Time-------------------------------------------------------
-RUN apt-get install -y git tzdata python3 python3-pip fuse
-RUN apt install -y python3-opencv rclone
-RUN pip3 install numpy pysftp
+RUN apt-get install -y tzdata
 RUN echo $TZ > /etc/timezone && \
     rm /etc/localtime && \
     ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && \
@@ -17,11 +14,10 @@ RUN echo $TZ > /etc/timezone && \
     apt-get clean
 #-----------------------------------------------------------
 
-WORKDIR /root
-RUN git clone https://github.com/BonhyeonGu/png2mp4RandWeb p
+#SSH--------------------------------------------------------
+RUN apt-get install -y openssh-server
+RUN echo "PermitRootLogin yes \nPasswordAuthentication yes \nChallengeResponseAuthentication no" >> /etc/ssh/sshd_config
+RUN echo "root:!@@!@!@sd78S21DFfsd!!@@dsaas21d!!98DSFDS@O21O!!!@!!@" | chpasswd
+#-----------------------------------------------------------
 
-WORKDIR /root/p/3/
-RUN mkdir cmd
-RUN mkdir /source
-COPY ./locale.txt ./
-ENTRYPOINT ["/bin/sh", "-c" , "service nginx start && python3 app.py"]
+ENTRYPOINT ["/bin/sh", "-c" , "service ssh start && service nginx start && tail -f /dev/null"]
