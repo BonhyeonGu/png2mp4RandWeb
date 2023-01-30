@@ -64,12 +64,8 @@ sudo docker-compose build --no-cache
 1번의 경우 /root/p/1/cmd
 2번의 경우 /root/p/2/agent/cmd
 
-해당 위치에 SKIP 또는 SKIPONLYONE 이름의 파일이 있으면 새로운 영상을 생성합니다.
-
-```
-1. # touch /root/p/1/cmd/SKIP
-2. # touch /root/p/2/agent/cmd/SKIPONLYONE
-```
+해당 위치에 SKIP 또는 SKIPONLYONE 이름의 파일이 있으면 새로운 영상을 생성합니다.  
+ex : touch /root/p/2/agent/cmd/SKIPONLYONE
 
 ### 3번~4번
 
@@ -84,16 +80,12 @@ Rclone으로 이미지 위치를 원격 마운트하여 불러오고 싶을 때 
 
 이 프로젝트는 locale.txt 파일에서 설정한 초마다 cmd 디렉토리내에 START를 확인하는 반복문이 있습니다.
 
-3. /root/p/3/cmd
-4. /root/p/4/agent/cmd
+3번의 경우 /root/p/3/cmd
+4번의 경우 /root/p/4/agent/cmd
 
 Rclone config로 Rclone을 설정한 후 사용하시는 프로젝트 번호내에 있는 cmd 디렉토리내에  
-START 파일을 생성해주면 영상을 생성하기 시작합니다.
-
-```
-3. # touch /root/p/3/cmd/START
-4. # touch /root/p/4/agent/cmd/START
-```
+START 파일을 생성해주면 영상을 생성하기 시작합니다.  
+ex : touch /root/p/4/agent/cmd/START
 
 ## 단축어
 
