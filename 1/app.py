@@ -4,6 +4,10 @@ import os
 import numpy as np
 import cv2
 import random
+import re
+
+
+namePattern = re.compile("(\d\d\d\d)-(\d\d)-(\d\d)_(\d\d)-(\d\d)-(\d\d)")
 
 allDirsRet = []
 def allDirs(rootdir):
@@ -32,7 +36,9 @@ def pickImageLocale(locale_inp, pick_count=5):
     file_list = random.sample(file_list, pick_count)
     return file_list
 
-def resizeAndPutText(file_list, putName=True, w=1920, h=1080):
+def resizeAndPutText(file_list, sw_tag, sw_date, w=1920, h=1080):
+    global namePattern
+
     size=(w, h)
     for file in file_list:
         base_pic=np.zeros((size[1],size[0],3),np.uint8)
@@ -48,10 +54,24 @@ def resizeAndPutText(file_list, putName=True, w=1920, h=1080):
         base_pic[int(size[1]/2-sizeas[1]/2):int(size[1]/2+sizeas[1]/2),
         int(size[0]/2-sizeas[0]/2):int(size[0]/2+sizeas[0]/2),:]=pic1
 
-        if putName:
-            ctime = datetime.fromtimestamp(os.path.getctime(file[1])).strftime('%Y.%m.%d %H:%M')
-            cv2.putText(base_pic,ctime,(1585,1040),cv2.FONT_HERSHEY_SCRIPT_COMPLEX,1,(0,0,0),4,cv2.LINE_AA)
-            cv2.putText(base_pic,ctime,(1585,1040),cv2.FONT_HERSHEY_SCRIPT_COMPLEX,1,(255,255,255),1,cv2.LINE_AA)
+        if sw_tag == '1':
+            if sw_date == '0':
+                tag = os.path.getctime(file[1])
+                timetag = datetime.fromtimestamp(tag).strftime('%Y.%m.%d %H:%M')
+            elif sw_date == '1':
+                tag = os.path.getmtime(file[1])
+                timetag = datetime.fromtimestamp(tag).strftime('%Y.%m.%d %H:%M')
+            elif sw_date == '2':
+                search_res = namePattern.search(file[0])
+                try:
+                    timetag = '%s.%s.%s %s:%s'%(search_res[0], search_res[1], search_res[2], search_res[3], search_res[4])
+                except:
+                    tag = os.path.getmtime(file[1])
+                    timetag = datetime.fromtimestamp(tag).strftime('%Y.%m.%d %H:%M')
+            else:
+                break
+            cv2.putText(base_pic,timetag,(1585,1040),cv2.FONT_HERSHEY_SCRIPT_COMPLEX,1,(0,0,0),4,cv2.LINE_AA)
+            cv2.putText(base_pic,timetag,(1585,1040),cv2.FONT_HERSHEY_SCRIPT_COMPLEX,1,(255,255,255),1,cv2.LINE_AA)
         cv2.imwrite('./' + file[0], base_pic)
 
 def imagesToMp4(file_list):
