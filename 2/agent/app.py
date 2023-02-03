@@ -66,6 +66,7 @@ def resizeAndPutText(file_list, sw_tag, sw_date, w=1920, h=1080):
             elif sw_date == '2':
                 search_res = namePattern.search(file[0])
                 try:
+                    search_res = search_res.groups()
                     timetag = '%s.%s.%s %s:%s'%(search_res[0], search_res[1], search_res[2], search_res[3], search_res[4])
                 except:
                     tag = os.path.getmtime(file[1])
