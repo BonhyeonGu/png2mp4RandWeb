@@ -20,7 +20,7 @@ def allDirs(rootdir):
             allDirsRet.append(d)
             allDirs(d)
 
-def pickImageLocale(locale_inp, pick_count=5):
+def pickImageLocale(locale_inp, pick_count=10):
     allDirs(locale_inp)
     global allDirsRet
 
@@ -78,11 +78,17 @@ def resizeAndPutText(file_list, sw_tag, sw_date, w=1920, h=1080):
         cv2.imwrite('./' + file[0], base_pic)
 
 def imagesToMp4(file_list):
-    cmd = 'ffmpeg -y -loop 1 -t 5 -i %s -loop 1 -t 5 -i %s -loop 1 -t 5 -i %s -loop 1 -t 5 -i %s -loop 1 -t 5 -i %s ' % ("./" + file_list[0][0], "./" + file_list[1][0], "./" + file_list[2][0], "./" + file_list[3][0], "./" + file_list[4][0])
+    cmd = ""
+    cmd += 'ffmpeg -y -loop 1 -t 10 -i %s -loop 1 -t 10 -i %s -loop 1 -t 10 -i %s -loop 1 -t 10 -i %s -loop 1 -t 10 -i %s ' % ("./" + file_list[0][0], "./" + file_list[1][0], "./" + file_list[2][0], "./" + file_list[3][0], "./" + file_list[4][0])
+    cmd += 'ffmpeg -y -loop 1 -t 10 -i %s -loop 1 -t 10 -i %s -loop 1 -t 10 -i %s -loop 1 -t 10 -i %s -loop 1 -t 10 -i %s ' % ("./" + file_list[5][0], "./" + file_list[6][0], "./" + file_list[7][0], "./" + file_list[8][0], "./" + file_list[9][0])
+    
     cmd += '-filter_complex "[0:v]fade=t=in:st=0:d=1, fade=t=out:st=4:d=1[v0]; '
     cmd += '[1:v]fade=t=in:st=0:d=1,fade=t=out:st=4:d=1[v1]; [2:v]fade=t=in:st=0:d=1,fade=t=out:st=4:d=1[v2]; '
     cmd += '[3:v]fade=t=in:st=0:d=1,fade=t=out:st=4:d=1[v3]; [4:v]fade=t=in:st=0:d=1,fade=t=out:st=4:d=1[v4]; '
-    cmd += '[v0][v1][v2][v3][v4]concat=n=5:v=1:a=0,format=yuv420p[v]" -map "[v]" %s' % ('./' + "out0.mp4")
+    cmd += ' "[5:v]fade=t=in:st=0:d=1, fade=t=out:st=4:d=1[v5]; '
+    cmd += '[6:v]fade=t=in:st=0:d=1,fade=t=out:st=4:d=1[v6]; [7:v]fade=t=in:st=0:d=1,fade=t=out:st=4:d=1[v7]; '
+    cmd += '[8:v]fade=t=in:st=0:d=1,fade=t=out:st=4:d=1[v8]; [9:v]fade=t=in:st=0:d=1,fade=t=out:st=4:d=1[v9]; '
+    cmd += '[v0][v1][v2][v3][v4][v5][v6][v7][v8][v9]concat=n=10:v=1:a=0,format=yuv420p[v]" -map "[v]" %s' % ('./' + "out0.mp4")
     os.system(cmd)
     
 def routine(locale_inp, sftp_host, sftp_port, sftp_id, sftp_pw, remote_out, sw_tag, sw_date):
