@@ -39,6 +39,7 @@ def pickImageLocale(locale_inp, pick_count=10):
 
     while(len(file_list) < pick_count):
         print("파일 개수가, 원하고자 하는 크기보다 적습니다!")
+        sleep(300)
         file_list = []
         for dir in dir_list:
             if "@eaDir" in dir:
@@ -92,8 +93,8 @@ def resizeAndPutText(file_list, sw_tag, sw_date, w=1920, h=1080):
 
 def imagesToMp4(file_list):
     cmd = ""
-    cmd += 'ffmpeg -y -loop 1 -t 5 -i %s -loop 1 -t 5 -i %s -loop 1 -t 5 -i %s -loop 1 -t 5 -i %s -loop 1 -t 5 -i %s ' % ("./" + file_list[0][0], "./" + file_list[1][0], "./" + file_list[2][0], "./" + file_list[3][0], "./" + file_list[4][0])
-    cmd += ' -loop 1 -t 5 -i %s -loop 1 -t 5 -i %s -loop 1 -t 5 -i %s -loop 1 -t 5 -i %s -loop 1 -t 5 -i %s ' % ("./" + file_list[5][0], "./" + file_list[6][0], "./" + file_list[7][0], "./" + file_list[8][0], "./" + file_list[9][0])
+    cmd += 'ffmpeg -y -loop 1 -t 10 -i %s -loop 1 -t 10 -i %s -loop 1 -t 10 -i %s -loop 1 -t 10 -i %s -loop 1 -t 10 -i %s ' % ("./" + file_list[0][0], "./" + file_list[1][0], "./" + file_list[2][0], "./" + file_list[3][0], "./" + file_list[4][0])
+    cmd += ' -loop 1 -t 10 -i %s -loop 1 -t 10 -i %s -loop 1 -t 10 -i %s -loop 1 -t 10 -i %s -loop 1 -t 10 -i %s ' % ("./" + file_list[5][0], "./" + file_list[6][0], "./" + file_list[7][0], "./" + file_list[8][0], "./" + file_list[9][0])
     
     cmd += '-filter_complex "[0:v]fade=t=in:st=0:d=1, fade=t=out:st=9:d=1[v0]; '
     cmd += '[1:v]fade=t=in:st=0:d=1,fade=t=out:st=9:d=1[v1]; [2:v]fade=t=in:st=0:d=1,fade=t=out:st=9:d=1[v2]; '
