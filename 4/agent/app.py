@@ -23,6 +23,8 @@ def allDirs(rootdir):
 def pickImageLocale(locale_inp, pick_count=10):
     allDirs(locale_inp)
     global allDirsRet
+    allDirsRet.append(locale_inp)
+    print(allDirsRet)
 
     dir_list = allDirsRet
     file_list = []
@@ -85,7 +87,7 @@ def imagesToMp4(file_list):
     cmd += '-filter_complex "[0:v]fade=t=in:st=0:d=1, fade=t=out:st=4:d=1[v0]; '
     cmd += '[1:v]fade=t=in:st=0:d=1,fade=t=out:st=4:d=1[v1]; [2:v]fade=t=in:st=0:d=1,fade=t=out:st=4:d=1[v2]; '
     cmd += '[3:v]fade=t=in:st=0:d=1,fade=t=out:st=4:d=1[v3]; [4:v]fade=t=in:st=0:d=1,fade=t=out:st=4:d=1[v4]; '
-    cmd += ' "[5:v]fade=t=in:st=0:d=1, fade=t=out:st=4:d=1[v5]; '
+    cmd += ' [5:v]fade=t=in:st=0:d=1, fade=t=out:st=4:d=1[v5]; '
     cmd += '[6:v]fade=t=in:st=0:d=1,fade=t=out:st=4:d=1[v6]; [7:v]fade=t=in:st=0:d=1,fade=t=out:st=4:d=1[v7]; '
     cmd += '[8:v]fade=t=in:st=0:d=1,fade=t=out:st=4:d=1[v8]; [9:v]fade=t=in:st=0:d=1,fade=t=out:st=4:d=1[v9]; '
     cmd += '[v0][v1][v2][v3][v4][v5][v6][v7][v8][v9]concat=n=10:v=1:a=0,format=yuv420p[v]" -map "[v]" %s' % ('./' + "out0.mp4")
