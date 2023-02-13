@@ -59,7 +59,14 @@ def resizeAndPutText(file_list, sw_tag, sw_date, w=1920, h=1080):
     for file in file_list:
         base_pic=np.zeros((size[1],size[0],3),np.uint8)
         pic1=cv2.imread(file[1], cv2.IMREAD_COLOR)
-        h,w=pic1.shape[:2]
+        try:
+            while(True):
+                h,w=pic1.shape[:2]
+                break
+        except:
+            print("치명적인 문제!")
+            print(file)
+            continue
         ash=size[1]/h
         asw=size[0]/w
         if asw<ash:
