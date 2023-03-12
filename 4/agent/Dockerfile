@@ -7,7 +7,7 @@ RUN apt-get update && apt-get upgrade -y && apt update
 RUN apt install -y ffmpeg cron
 
 #Time-------------------------------------------------------
-RUN apt-get install -y git tzdata python3 python3-pip fuse
+RUN apt-get install -y git tzdata python3 python3-pip fuse nano
 RUN apt install -y python3-opencv rclone
 RUN pip3 install numpy pysftp
 RUN echo $TZ > /etc/timezone && \
