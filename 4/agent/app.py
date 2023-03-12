@@ -116,6 +116,7 @@ def routine(locale_inp, sftp_host, sftp_port, sftp_id, sftp_pw, remote_out, sw_t
     file_list = pickImageLocale(locale_inp)
     for i in range(len(file_list)):
         print(file_list[i][1], end=' ')
+    print("")
     resizeAndPutText(file_list, sw_tag, sw_date)
     #print("%s start: ffmpeg" % (datetime.now().strftime('%Y-%m-%d %H:%M:%S')))
     imagesToMp4(file_list)
@@ -129,7 +130,6 @@ def routine(locale_inp, sftp_host, sftp_port, sftp_id, sftp_pw, remote_out, sw_t
     sftp.close()
     
     print("%s end: routine" % (datetime.now().strftime('%Y-%m-%d %H:%M:%S')))
-    print("")
 
 
 if __name__ == "__main__":
