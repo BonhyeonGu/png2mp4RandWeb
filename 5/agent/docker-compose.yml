@@ -7,8 +7,6 @@ services:
     build:
       context: .
       dockerfile: ./Dockerfile
-    ports:
-      - "8000:80"
     environment:
         TZ: "Asia/Seoul"
     devices:
