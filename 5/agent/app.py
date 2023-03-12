@@ -6,6 +6,9 @@ import cv2
 import random
 import re
 
+import pysftp
+
+
 namePattern = re.compile("(\d\d\d\d)-(\d\d)-(\d\d)_(\d\d)-(\d\d)-(\d\d)")
 
 allDirsRet = []
@@ -41,7 +44,7 @@ def pickImageLocale(locale_inp, pick_count, sw_size):
     file_list = random.sample(file_list, pick_count)
     return file_list
 
-def resizeAndPutText(file_list, sw_tag, sw_date, w, h, locale_out, output_names):
+def resizeAndPutText(file_list, sw_tag, sw_date, w, h, remote_out, output_names):
     global namePattern
 
     size=(w, h)
@@ -78,26 +81,37 @@ def resizeAndPutText(file_list, sw_tag, sw_date, w, h, locale_out, output_names)
                 break
             cv2.putText(base_pic,timetag,(1585,1040),cv2.FONT_HERSHEY_SCRIPT_COMPLEX,1,(0,0,0),4,cv2.LINE_AA)
             cv2.putText(base_pic,timetag,(1585,1040),cv2.FONT_HERSHEY_SCRIPT_COMPLEX,1,(255,255,255),1,cv2.LINE_AA)
-        cv2.imwrite(locale_out + output_names[0], base_pic)
+        cv2.imwrite('./' + output_names[0], base_pic)
+        cnopts = pysftp.CnOpts()
+        cnopts.hostkeys = None
+        with pysftp.Connection(sftp_host, port=sftp_port, username=sftp_id, password=sftp_pw, cnopts=cnopts) as sftp:
+            sftp.put('./' + output_names[0], remote_out + output_names[0])
+        sftp.close()
 
-def routine(locale_inp, locale_out, sw_tag, sw_date, sw_size, w, h, output_names):
+def routine(locale_inp, remote_out, sw_tag, sw_date, sw_size, w, h, output_names):
     pick_count = len(output_names)
     file_list = pickImageLocale(locale_inp, pick_count, sw_size)#!
     print(file_list)
-    resizeAndPutText(file_list, sw_tag, sw_date, w, h, locale_out, output_names)#!
+    resizeAndPutText(file_list, sw_tag, sw_date, w, h, remote_out, output_names)#!
 
 if __name__ == "__main__":
     with open('./locale.txt','r') as f:
         fs = f.read().split('\n')
         interTime = int(fs[0])
         locale_inp = fs[1]
-        locale_out = fs[2]
+        t = fs[2].split(':')
+        sftp_host = t[0]
+        sftp_port = int(t[1])
+        t = fs[3].split('/')
+        sftp_id = t[0]
+        sftp_pw = t[1]
+        remote_out = fs[4]
         #/usr/share/nginx/html
-        sw_tag = fs[3]
-        sw_date = fs[4]
+        sw_tag = fs[5]
+        sw_date = fs[6]
 
     while(True):
         if("START" in os.listdir('./cmd/')):
-            routine(locale_inp, locale_out, sw_tag, sw_date, '0', 1920, 1080, ["1.png", "2.png", "3.png", "4.png", "5.png"])
+            routine(locale_inp, remote_out, sw_tag, sw_date, '0', 1920, 1080, ["1.png", "2.png", "3.png", "4.png", "5.png"])
         sleep(interTime)
 

@@ -1,12 +1,14 @@
 version: "3"
 services:
-  png2mp4_agent:
+  png2png_agent:
     tty: true
     stdin_open: true
-    container_name: png2mp4
+    container_name: png2png_agent
     build:
       context: .
       dockerfile: ./Dockerfile
+    ports:
+      - "8000:80"
     environment:
         TZ: "Asia/Seoul"
     devices:
