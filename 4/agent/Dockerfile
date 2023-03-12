@@ -4,7 +4,7 @@ LABEL name="BonhyeonGu"
 ENV TZ=Asia/Seoul
 ARG DEBIAN_FRONTEND=noninteractive
 RUN apt-get update && apt-get upgrade -y && apt update
-RUN apt install -y ffmpeg
+RUN apt install -y ffmpeg cron
 
 #Time-------------------------------------------------------
 RUN apt-get install -y git tzdata python3 python3-pip fuse
