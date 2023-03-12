@@ -35,9 +35,9 @@ def pickImageLocale(locale_inp, pick_count, sw_size):
                 dir2fullName = dir + '/' + dir2fileName
                 img = cv2.imread(dir2fullName, cv2.IMREAD_COLOR)
                 h, w, c = img.shape
-                if sw_size == '1' and h < w:
+                if sw_size == 1 and h < w:
                     break
-                elif sw_size == '2' and h > w:
+                elif sw_size == 2 and h > w:
                     break
                 file_list.append((dir2fileName, dir2fullName))
 
@@ -112,6 +112,6 @@ if __name__ == "__main__":
 
     while(True):
         if("START" in os.listdir('./cmd/')):
-            routine(locale_inp, remote_out, sw_tag, sw_date, '0', 1920, 1080, ["1.png", "2.png", "3.png", "4.png", "5.png"])
+            routine(locale_inp, remote_out, sw_tag, sw_date, 0, 1920, 1080, ["1.png", "2.png", "3.png", "4.png", "5.png"])
         sleep(interTime)
 
