@@ -115,11 +115,11 @@ def routine(locale_inp, sftp_host, sftp_port, sftp_id, sftp_pw, remote_out, sw_t
     print("%s start: routine" % (datetime.now().strftime('%Y-%m-%d %H:%M:%S')))
     file_list = pickImageLocale(locale_inp)
     for i in range(len(file_list)):
-        print(file_list[i])
+        print(file_list[i][1], end=' ')
     resizeAndPutText(file_list, sw_tag, sw_date)
-    print("%s start: ffmpeg" % (datetime.now().strftime('%Y-%m-%d %H:%M:%S')))
+    #print("%s start: ffmpeg" % (datetime.now().strftime('%Y-%m-%d %H:%M:%S')))
     imagesToMp4(file_list)
-    print("%s end: ffmpeg" % (datetime.now().strftime('%Y-%m-%d %H:%M:%S')))
+    #print("%s end: ffmpeg" % (datetime.now().strftime('%Y-%m-%d %H:%M:%S')))
     os.system('rm -rf ./*.png')
 
     cnopts = pysftp.CnOpts()
