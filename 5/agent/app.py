@@ -33,16 +33,17 @@ def pickImageLocale(locale_inp, pick_count, sw_size):
         for dir2fileName in dir2fileName_list:
             if dir2fileName.endswith(".png"):
                 dir2fullName = dir + '/' + dir2fileName
-                img = cv2.imread(dir2fullName, cv2.IMREAD_COLOR)
-                try:
-                    h, w = img.shape[:2]
-                except:
-                    print("스킵됨! 읽을 수 없는 파일! : " + dir2fullName)
-                    continue
-                if sw_size == 1 and h < w:
-                    continue
-                elif sw_size == 2 and h > w:
-                    continue
+                if sw_size != 0:
+                    img = cv2.imread(dir2fullName, cv2.IMREAD_COLOR)
+                    try:
+                        h, w = img.shape[:2]
+                    except:
+                        print("pickImageLocale : 스킵됨! 읽을 수 없는 파일! : " + dir2fullName)
+                        continue
+                    if sw_size == 1 and h < w:
+                        continue
+                    elif sw_size == 2 and h > w:
+                        continue
                 file_list.append((dir2fileName, dir2fullName))
 
     file_list = random.sample(file_list, pick_count)
