@@ -24,7 +24,6 @@ def pickImageLocale(locale_inp, pick_count=10):
     allDirs(locale_inp)
     global allDirsRet
     allDirsRet.append(locale_inp)
-    #print(allDirsRet)
 
     dir_list = allDirsRet
 
@@ -39,7 +38,7 @@ def pickImageLocale(locale_inp, pick_count=10):
 
     while(len(file_list) < pick_count):
         print("파일 개수가, 원하고자 하는 크기보다 적습니다!")
-        sleep(300)
+        sleep(30)
         file_list = []
         for dir in dir_list:
             if "@eaDir" in dir:
@@ -55,7 +54,7 @@ def pickImageLocale(locale_inp, pick_count=10):
 def resizeAndPutText(file_list, sw_tag, sw_date, w=1920, h=1080):
     global namePattern
 
-    size=(w, h)
+    size = (w, h)
     for file in file_list:
         base_pic=np.zeros((size[1],size[0],3),np.uint8)
         pic1=cv2.imread(file[1], cv2.IMREAD_COLOR)
@@ -100,7 +99,7 @@ def resizeAndPutText(file_list, sw_tag, sw_date, w=1920, h=1080):
 
 def imagesToMp4(file_list):
     cmd = ""
-    cmd += 'ffmpeg -y -loop 1 -t 10 -i %s -loop 1 -t 10 -i %s -loop 1 -t 10 -i %s -loop 1 -t 10 -i %s -loop 1 -t 10 -i %s ' % ("./" + file_list[0][0], "./" + file_list[1][0], "./" + file_list[2][0], "./" + file_list[3][0], "./" + file_list[4][0])
+    cmd += 'ffmpeg -loglevel fatal -y -loop 1 -t 10 -i %s -loop 1 -t 10 -i %s -loop 1 -t 10 -i %s -loop 1 -t 10 -i %s -loop 1 -t 10 -i %s ' % ("./" + file_list[0][0], "./" + file_list[1][0], "./" + file_list[2][0], "./" + file_list[3][0], "./" + file_list[4][0])
     cmd += ' -loop 1 -t 10 -i %s -loop 1 -t 10 -i %s -loop 1 -t 10 -i %s -loop 1 -t 10 -i %s -loop 1 -t 10 -i %s ' % ("./" + file_list[5][0], "./" + file_list[6][0], "./" + file_list[7][0], "./" + file_list[8][0], "./" + file_list[9][0])
     
     cmd += '-filter_complex "[0:v]fade=t=in:st=0:d=1, fade=t=out:st=9:d=1[v0]; '
@@ -115,7 +114,8 @@ def imagesToMp4(file_list):
 def routine(locale_inp, sftp_host, sftp_port, sftp_id, sftp_pw, remote_out, sw_tag, sw_date):
     print("%s start: routine" % (datetime.now().strftime('%Y-%m-%d %H:%M:%S')))
     file_list = pickImageLocale(locale_inp)
-    #print(file_list)
+    for i in range(len(file_list)):
+        print(file_list[i])
     resizeAndPutText(file_list, sw_tag, sw_date)
     print("%s start: ffmpeg" % (datetime.now().strftime('%Y-%m-%d %H:%M:%S')))
     imagesToMp4(file_list)
@@ -129,6 +129,7 @@ def routine(locale_inp, sftp_host, sftp_port, sftp_id, sftp_pw, remote_out, sw_t
     sftp.close()
     
     print("%s end: routine" % (datetime.now().strftime('%Y-%m-%d %H:%M:%S')))
+    print("")
 
 
 if __name__ == "__main__":
