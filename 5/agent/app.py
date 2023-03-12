@@ -33,7 +33,6 @@ def pickImageLocale(locale_inp, pick_count, sw_size):
         for dir2fileName in dir2fileName_list:
             if dir2fileName.endswith(".png"):
                 dir2fullName = dir + '/' + dir2fileName
-                print(dir2fullName)
                 img = cv2.imread(dir2fullName, cv2.IMREAD_COLOR)
                 h, w = img.shape[:2]
                 if sw_size == 1 and h < w:
