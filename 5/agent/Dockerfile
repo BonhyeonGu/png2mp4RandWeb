@@ -19,7 +19,7 @@ RUN echo $TZ > /etc/timezone && \
 WORKDIR /root
 RUN git clone https://github.com/BonhyeonGu/png2mp4RandWeb p
 
-WORKDIR /root/p/5/
+WORKDIR /root/p/5/agent
 RUN mkdir cmd
 RUN mkdir /source
 COPY ./locale.txt ./
