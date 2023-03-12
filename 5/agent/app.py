@@ -37,12 +37,12 @@ def pickImageLocale(locale_inp, pick_count, sw_size):
                 try:
                     h, w = img.shape[:2]
                 except:
-                    print(dir2fileName)
-                    print(dir2fullName)
+                    print("스킵됨! 읽을 수 없는 파일! : " + dir2fullName)
+                    continue
                 if sw_size == 1 and h < w:
-                    break
+                    continue
                 elif sw_size == 2 and h > w:
-                    break
+                    continue
                 file_list.append((dir2fileName, dir2fullName))
 
     file_list = random.sample(file_list, pick_count)
