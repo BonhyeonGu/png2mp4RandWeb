@@ -53,9 +53,9 @@ def resizeAndPutText(file_list, sw_tag, sw_date, w, h, remote_out, output_names)
     global namePattern
 
     size=(w, h)
-    for file in file_list:
+    for i in range(len(file_list)):
         base_pic=np.zeros((size[1],size[0],3),np.uint8)
-        pic1=cv2.imread(file[1], cv2.IMREAD_COLOR)
+        pic1=cv2.imread(file_list[i][1], cv2.IMREAD_COLOR)
         h, w = pic1.shape[:2]
 
         ash = size[1] / h
@@ -70,28 +70,28 @@ def resizeAndPutText(file_list, sw_tag, sw_date, w, h, remote_out, output_names)
 
         if sw_tag == '1':
             if sw_date == '0':
-                tag = os.path.getctime(file[1])
+                tag = os.path.getctime(file_list[i][1])
                 timetag = datetime.fromtimestamp(tag).strftime('%Y.%m.%d %H:%M')
             elif sw_date == '1':
-                tag = os.path.getmtime(file[1])
+                tag = os.path.getmtime(file_list[i][1])
                 timetag = datetime.fromtimestamp(tag).strftime('%Y.%m.%d %H:%M')
             elif sw_date == '2':
-                search_res = namePattern.search(file[0])
+                search_res = namePattern.search(file_list[i][0])
                 try:
                     search_res = search_res.groups()
                     timetag = '%s.%s.%s %s:%s'%(search_res[0], search_res[1], search_res[2], search_res[3], search_res[4])
                 except:
-                    tag = os.path.getmtime(file[1])
+                    tag = os.path.getmtime(file_list[i][1])
                     timetag = datetime.fromtimestamp(tag).strftime('%Y.%m.%d %H:%M')
             else:
                 break
             cv2.putText(base_pic,timetag,(1585,1040),cv2.FONT_HERSHEY_SCRIPT_COMPLEX,1,(0,0,0),4,cv2.LINE_AA)
             cv2.putText(base_pic,timetag,(1585,1040),cv2.FONT_HERSHEY_SCRIPT_COMPLEX,1,(255,255,255),1,cv2.LINE_AA)
-        cv2.imwrite('./' + output_names[0], base_pic)
+        cv2.imwrite('./' + output_names[i], base_pic)
         cnopts = pysftp.CnOpts()
         cnopts.hostkeys = None
         with pysftp.Connection(sftp_host, port=sftp_port, username=sftp_id, password=sftp_pw, cnopts=cnopts) as sftp:
-            sftp.put('./' + output_names[0], remote_out + output_names[0])
+            sftp.put('./' + output_names[i], remote_out + output_names[i])
         sftp.close()
 
 def routine(locale_inp, remote_out, sw_tag, sw_date, sw_size, w, h, output_names):
