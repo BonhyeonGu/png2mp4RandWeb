@@ -33,8 +33,9 @@ def pickImageLocale(locale_inp, pick_count, sw_size):
         for dir2fileName in dir2fileName_list:
             if dir2fileName.endswith(".png"):
                 dir2fullName = dir + '/' + dir2fileName
+                print(dir2fullName)
                 img = cv2.imread(dir2fullName, cv2.IMREAD_COLOR)
-                h, w, c = img.shape
+                h, w = img.shape[:2]
                 if sw_size == 1 and h < w:
                     break
                 elif sw_size == 2 and h > w:
@@ -51,9 +52,9 @@ def resizeAndPutText(file_list, sw_tag, sw_date, w, h, remote_out, output_names)
     for file in file_list:
         base_pic=np.zeros((size[1],size[0],3),np.uint8)
         pic1=cv2.imread(file[1], cv2.IMREAD_COLOR)
-        h,w=pic1.shape[:2]
-        ash=size[1]/h
-        asw=size[0]/w
+        h, w = pic1.shape[:2]
+        ash = size[1] / h
+        asw = size[0] / w
         if asw<ash:
             sizeas=(int(w*asw), int(h*asw))
         else:
