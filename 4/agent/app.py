@@ -41,8 +41,6 @@ def pickImageLocale(locale_inp, pick_count=10, drop_distance=3, drop_step=10):
         drops = []
     nextdrops = []
     for i in drops:
-        print(i)
-
         i = i.split(',,,')
         i[1] = int(i[1])
         i[1] -= 1
@@ -70,8 +68,11 @@ def pickImageLocale(locale_inp, pick_count=10, drop_distance=3, drop_step=10):
                 break
             nextdrops.append(tempRetNoDel[pIdx][0] + ',,,' + str(drop_step))
         with open('dropcache.txt','w') as f:
-            f.writelines(nextdrops)
-            print(nextdrops)
+            for i in range(len(nextdrops)):
+                if i == len(nextdrops) - 1:
+                    f.write(str(nextdrops[i]))
+                else:
+                    f.write(str(nextdrops[i]) + '\n')
     return ret
 
 def resizeAndPutText(file_list, sw_tag, sw_date, w=1920, h=1080):
