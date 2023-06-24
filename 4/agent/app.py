@@ -173,11 +173,11 @@ if __name__ == "__main__":
         sftp_id = t[0]
         sftp_pw = t[1]
 
-        remote_out = fs[4]
+        remote_out = fs[6]
         #/usr/share/nginx/html
 
-        sw_tag = fs[6]
-        sw_date = fs[7]
+        sw_tag = fs[7]
+        sw_date = fs[8]
 
     while(True):
         sleep(interTime)
