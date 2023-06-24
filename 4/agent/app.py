@@ -42,6 +42,7 @@ def pickImageLocale(locale_inp, pick_count=10, drop_distance=3, drop_step=10):
     nextdrops = []
     for i in drops:
         i = i.split(',,,')
+        i[1] = int(i[1])
         i[1] -= 1
         if i[1] > 0:
             nextdrops.append(i[0] + ',,,' + i[1])
@@ -58,6 +59,9 @@ def pickImageLocale(locale_inp, pick_count=10, drop_distance=3, drop_step=10):
             pIdx = idx - (j+1)
             if pIdx < 0:
                 break
+            print(tempRetNoDel[pIdx])
+            print(str(drop_step))
+
             nextdrops.append(tempRetNoDel[pIdx] + ',,,' + str(drop_step))
         for j in range(drop_distance):
             pIdx = idx + (j+1)
