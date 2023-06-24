@@ -13,43 +13,60 @@ namePattern = re.compile("(\d\d\d\d)-(\d\d)-(\d\d)_(\d\d)-(\d\d)-(\d\d)")
 
 allDirsRet = []
 def allDirs(rootdir):
-    global allDirsRet
+    ret = []
     for file in os.listdir(rootdir):
         d = os.path.join(rootdir, file)
         if os.path.isdir(d):
-            allDirsRet.append(d)
+            ret.append(d)
             allDirs(d)
+    return ret
 
-def pickImageLocale(locale_inp, pick_count=10):
-    allDirs(locale_inp)
-    global allDirsRet
-    allDirsRet.append(locale_inp)
-
-    dir_list = allDirsRet
-
-    file_list = []
-    for dir in dir_list:
+def pickImageLocale(locale_inp, pick_count=10, drop_distance=3, drop_step=10):
+    allDirsRet = allDirs(locale_inp)
+    tempRet = []
+    tempRetNoDel = []
+    for dir in allDirsRet:
         if "@eaDir" in dir:#Synology bug
             continue
         dir2fileName_list = os.listdir(dir)
         for dir2fileName in dir2fileName_list:
-            if dir2fileName.endswith(".png"):
-                file_list.append((dir2fileName, dir+'/'+dir2fileName))
+            if dir2fileName.endswith(".png"):                
+                tempRet.append((dir2fileName, dir+'/'+dir2fileName))
+                tempRetNoDel.append((dir2fileName, dir+'/'+dir2fileName))
 
-    while(len(file_list) < pick_count):
-        print("파일 개수가, 원하고자 하는 크기보다 적습니다!")
-        sleep(30)
-        file_list = []
-        for dir in dir_list:
-            if "@eaDir" in dir:
-                continue
-            dir2fileName_list = os.listdir(dir)
-            for dir2fileName in dir2fileName_list:
-                if dir2fileName.endswith(".png"):
-                    file_list.append((dir2fileName, dir+'/'+dir2fileName))
+    try:
+        with open('dropcache.txt','r') as f:
+            drops = f.readlines()
+    except FileNotFoundError:
+        drops = []
+    nextdrops = []
+    for i in drops:
+        i = i.split(',,,')
+        i[1] -= 1
+        if i[1] > 0:
+            nextdrops.append(i[0] + ',,,' + i[1])
+        try:
+            tempRet.remove(i[0])
+        except:
+            pass
+    print(tempRet)
+    ret = random.sample(tempRet, pick_count)
 
-    file_list = random.sample(file_list, pick_count)
-    return file_list
+    for i in ret:
+        idx = tempRetNoDel.index(i)
+        for j in range(drop_distance):
+            pIdx = idx - (j+1)
+            if pIdx < 0:
+                break
+            nextdrops.append(tempRetNoDel[pIdx] + ',,,' + str(drop_step))
+        for j in range(drop_distance):
+            pIdx = idx + (j+1)
+            if pIdx > len(tempRetNoDel) - 1:
+                break
+            nextdrops.append(tempRetNoDel[pIdx] + ',,,' + str(drop_step))
+        with open('dropcache.txt','w') as f:
+            drops = f.writelines(nextdrops)
+    return ret
 
 def resizeAndPutText(file_list, sw_tag, sw_date, w=1920, h=1080):
     global namePattern
