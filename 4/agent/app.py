@@ -45,7 +45,7 @@ def pickImageLocale(locale_inp, pick_count=10, drop_distance=3, drop_step=10):
         i[1] = int(i[1])
         i[1] -= 1
         if i[1] > 0:
-            nextdrops.append(i[0] + ',,,' + i[1])
+            nextdrops.append(i[0] + ',,,' + str(i[1]))
         for tuple in tempRet:
             if tuple[0] == i[0]:
                 tempRet.remove(tuple)
@@ -140,7 +140,6 @@ def routine(locale_inp, sftp_host, sftp_port, sftp_id, sftp_pw, remote_out, sw_t
     file_list = pickImageLocale(locale_inp)
     #for i in range(len(file_list)):
     #    print(file_list[i][1], end=' ')
-    print("")
     resizeAndPutText(file_list, sw_tag, sw_date)
     #print("%s start: ffmpeg" % (datetime.now().strftime('%Y-%m-%d %H:%M:%S')))
     imagesToMp4(file_list)
@@ -154,7 +153,7 @@ def routine(locale_inp, sftp_host, sftp_port, sftp_id, sftp_pw, remote_out, sw_t
     sftp.close()
     
     print("%s end: routine" % (datetime.now().strftime('%Y-%m-%d %H:%M:%S')))
-
+    print("")
 
 if __name__ == "__main__":
     with open('./locale.txt','r') as f:
