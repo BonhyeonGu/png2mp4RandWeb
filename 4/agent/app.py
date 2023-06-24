@@ -21,7 +21,7 @@ def allDirs(rootdir):
             allDirs(d)
     return ret
 
-def pickImageLocale(locale_inp, pick_count=10, drop_distance=3, drop_step=10):
+def pickImageLocale(locale_inp, drop_distance, drop_step, pick_count=10, ):
     allDirsRet = allDirs(locale_inp)
     tempRet = []
     tempRetNoDel = []
@@ -90,12 +90,12 @@ def resizeAndPutText(file_list, sw_tag, sw_date, w=1920, h=1080):
             print("치명적인 문제!")
             print(file)
             continue
-        ash=size[1]/h
-        asw=size[0]/w
+        ash = size[1]/h
+        asw = size[0]/w
         if asw<ash:
-            sizeas=(int(w*asw), int(h*asw))
+            sizeas = (int(w*asw), int(h*asw))
         else:
-            sizeas=(int(w*ash), int(h*ash))
+            sizeas = (int(w*ash), int(h*ash))
         pic1 = cv2.resize(pic1,dsize=sizeas)
         base_pic[int(size[1]/2-sizeas[1]/2):int(size[1]/2+sizeas[1]/2),
         int(size[0]/2-sizeas[0]/2):int(size[0]/2+sizeas[0]/2),:]=pic1
@@ -135,9 +135,9 @@ def imagesToMp4(file_list):
     cmd += '[v0][v1][v2][v3][v4][v5][v6][v7][v8][v9]concat=n=10:v=1:a=0,format=yuv420p[v]" -map "[v]" %s' % ('./' + "out0.mp4")
     os.system(cmd)
     
-def routine(locale_inp, sftp_host, sftp_port, sftp_id, sftp_pw, remote_out, sw_tag, sw_date):
+def routine(locale_inp, drop_distance, drop_step, sftp_host, sftp_port, sftp_id, sftp_pw, remote_out, sw_tag, sw_date):
     print("%s start: routine" % (datetime.now().strftime('%Y-%m-%d %H:%M:%S')))
-    file_list = pickImageLocale(locale_inp)
+    file_list = pickImageLocale(locale_inp, drop_distance, drop_step,)
     #for i in range(len(file_list)):
     #    print(file_list[i][1], end=' ')
     resizeAndPutText(file_list, sw_tag, sw_date)
@@ -161,22 +161,25 @@ if __name__ == "__main__":
 
         interTime = int(fs[0])
         locale_inp = fs[1]
+
+        drop_distance = fs[2]
+        drop_step = fs[3]
         
-        t = fs[2].split(':')
+        t = fs[4].split(':')
         sftp_host = t[0]
         sftp_port = int(t[1])
 
-        t = fs[3].split('/')
+        t = fs[5].split('/')
         sftp_id = t[0]
         sftp_pw = t[1]
 
         remote_out = fs[4]
         #/usr/share/nginx/html
 
-        sw_tag = fs[5]
-        sw_date = fs[6]
+        sw_tag = fs[6]
+        sw_date = fs[7]
 
     while(True):
         sleep(interTime)
         if("START" in os.listdir('./cmd/')):
-            routine(locale_inp, sftp_host, sftp_port, sftp_id, sftp_pw, remote_out, sw_tag, sw_date)
+            routine(locale_inp, drop_distance, drop_step, sftp_host, sftp_port, sftp_id, sftp_pw, remote_out, sw_tag, sw_date)
