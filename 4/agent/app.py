@@ -46,22 +46,21 @@ def pickImageLocale(locale_inp, pick_count=10, drop_distance=3, drop_step=10):
         i[1] -= 1
         if i[1] > 0:
             nextdrops.append(i[0] + ',,,' + i[1])
-        try:
-            tempRet.remove(i[0])
-        except:
-            pass
-    print(tempRet)
+        for tuple in tempRet:
+            if tuple[0] == tempRet:
+                tempRet.remove(tuple)
+                break
+            
     ret = random.sample(tempRet, pick_count)
 
     for i in ret:
-        idx = tempRetNoDel.index(i)
+        for j, (x, _) in enumerate(tempRetNoDel):
+            if x == i:
+                idx = j
         for j in range(drop_distance):
             pIdx = idx - (j+1)
             if pIdx < 0:
                 break
-            print(tempRetNoDel[pIdx])
-            print(str(drop_step))
-
             nextdrops.append(tempRetNoDel[pIdx] + ',,,' + str(drop_step))
         for j in range(drop_distance):
             pIdx = idx + (j+1)
