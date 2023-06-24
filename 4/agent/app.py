@@ -138,8 +138,8 @@ def imagesToMp4(file_list):
 def routine(locale_inp, drop_distance, drop_step, sftp_host, sftp_port, sftp_id, sftp_pw, remote_out, sw_tag, sw_date):
     print("%s start: routine" % (datetime.now().strftime('%Y-%m-%d %H:%M:%S')))
     file_list = pickImageLocale(locale_inp, drop_distance, drop_step,)
-    #for i in range(len(file_list)):
-    #    print(file_list[i][1], end=' ')
+    for i in range(len(file_list)):
+        print(file_list[i][1])
     resizeAndPutText(file_list, sw_tag, sw_date)
     #print("%s start: ffmpeg" % (datetime.now().strftime('%Y-%m-%d %H:%M:%S')))
     imagesToMp4(file_list)
@@ -162,8 +162,8 @@ if __name__ == "__main__":
         interTime = int(fs[0])
         locale_inp = fs[1]
 
-        drop_distance = fs[2]
-        drop_step = fs[3]
+        drop_distance = int(fs[2])
+        drop_step = int(fs[3])
         
         t = fs[4].split(':')
         sftp_host = t[0]
