@@ -61,12 +61,12 @@ def pickImageLocale(locale_inp, pick_count=10, drop_distance=3, drop_step=10):
             pIdx = idx - (j+1)
             if pIdx < 0:
                 break
-            nextdrops.append(tempRetNoDel[pIdx] + ',,,' + str(drop_step))
+            nextdrops.append(tempRetNoDel[pIdx][0] + ',,,' + str(drop_step))
         for j in range(drop_distance):
             pIdx = idx + (j+1)
             if pIdx > len(tempRetNoDel) - 1:
                 break
-            nextdrops.append(tempRetNoDel[pIdx] + ',,,' + str(drop_step))
+            nextdrops.append(tempRetNoDel[pIdx][0] + ',,,' + str(drop_step))
         with open('dropcache.txt','w') as f:
             drops = f.writelines(nextdrops)
     return ret
