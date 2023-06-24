@@ -41,6 +41,8 @@ def pickImageLocale(locale_inp, pick_count=10, drop_distance=3, drop_step=10):
         drops = []
     nextdrops = []
     for i in drops:
+        print(i)
+
         i = i.split(',,,')
         i[1] = int(i[1])
         i[1] -= 1
@@ -68,7 +70,8 @@ def pickImageLocale(locale_inp, pick_count=10, drop_distance=3, drop_step=10):
                 break
             nextdrops.append(tempRetNoDel[pIdx][0] + ',,,' + str(drop_step))
         with open('dropcache.txt','w') as f:
-            drops = f.writelines(nextdrops)
+            f.writelines(nextdrops)
+            print(nextdrops)
     return ret
 
 def resizeAndPutText(file_list, sw_tag, sw_date, w=1920, h=1080):
@@ -134,8 +137,8 @@ def imagesToMp4(file_list):
 def routine(locale_inp, sftp_host, sftp_port, sftp_id, sftp_pw, remote_out, sw_tag, sw_date):
     print("%s start: routine" % (datetime.now().strftime('%Y-%m-%d %H:%M:%S')))
     file_list = pickImageLocale(locale_inp)
-    for i in range(len(file_list)):
-        print(file_list[i][1], end=' ')
+    #for i in range(len(file_list)):
+    #    print(file_list[i][1], end=' ')
     print("")
     resizeAndPutText(file_list, sw_tag, sw_date)
     #print("%s start: ffmpeg" % (datetime.now().strftime('%Y-%m-%d %H:%M:%S')))
