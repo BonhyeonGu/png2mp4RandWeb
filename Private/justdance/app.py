@@ -49,7 +49,10 @@ def pickImageLocale(locale_inp, drop_distance, drop_step, pick_count=90, ):
             if tuple[0] == i[0]:
                 tempRet.remove(tuple)
                 break
-            
+
+    print(allDirsRet)
+    print(tempRet)
+    print(pick_count)        
     ret = random.sample(tempRet, pick_count)
 
     for i in ret:
