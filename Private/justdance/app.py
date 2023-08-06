@@ -73,7 +73,7 @@ def pickImageLocale(locale_inp, drop_distance, drop_step, pick_count=90, ):
                     f.write(str(nextdrops[i]) + '\n')
     return ret
 
-def resizeAndPutText(file_list, sw_tag, sw_date, w=1920, h=1080, splitSize=3):
+def resizeAndPutText(file_list, sw_tag, sw_date, w=1920, h=1080, splitSize=3, textSize=0.6):
     global namePattern
 
     size = (w//splitSize, h//splitSize)
@@ -115,8 +115,8 @@ def resizeAndPutText(file_list, sw_tag, sw_date, w=1920, h=1080, splitSize=3):
                     timetag = datetime.fromtimestamp(tag).strftime('%Y.%m.%d %H:%M')
             else:
                 break
-            cv2.putText(base_pic,timetag,(1585//splitSize,1040//splitSize),cv2.FONT_HERSHEY_SCRIPT_COMPLEX,1//splitSize,(0,0,0),4,cv2.LINE_AA)
-            cv2.putText(base_pic,timetag,(1585//splitSize,1040//splitSize),cv2.FONT_HERSHEY_SCRIPT_COMPLEX,1//splitSize,(255,255,255),1,cv2.LINE_AA)
+            cv2.putText(base_pic,timetag,(1585//splitSize,1040//splitSize),cv2.FONT_HERSHEY_SCRIPT_COMPLEX,textSize,(0,0,0),4,cv2.LINE_AA)
+            cv2.putText(base_pic,timetag,(1585//splitSize,1040//splitSize),cv2.FONT_HERSHEY_SCRIPT_COMPLEX,textSize,(255,255,255),1,cv2.LINE_AA)
         cv2.imwrite('./' + file[0], base_pic)
 
 def merge(file_list, w=1920, h=1080, splitSize=3):
