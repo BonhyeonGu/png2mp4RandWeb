@@ -166,7 +166,7 @@ def routine(locale_inp, drop_distance, drop_step, sftp_host, sftp_port, sftp_id,
     cnopts = pysftp.CnOpts()
     cnopts.hostkeys = None
     with pysftp.Connection(sftp_host, port=sftp_port, username=sftp_id, password=sftp_pw, cnopts=cnopts) as sftp:
-        sftp.put('./out0.mp4', remote_out+'out0.mp4')
+        sftp.put('./out1.mp4', remote_out+'out1.mp4')
     sftp.close()
     
     print("%s end: routine" % (datetime.now().strftime('%Y-%m-%d %H:%M:%S')))
