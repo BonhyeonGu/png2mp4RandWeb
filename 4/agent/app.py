@@ -11,14 +11,13 @@ import pysftp
 
 namePattern = re.compile("(\d\d\d\d)-(\d\d)-(\d\d)_(\d\d)-(\d\d)-(\d\d)")
 
-allDirsRet = []
 def allDirs(rootdir):
     ret = []
     for file in os.listdir(rootdir):
         d = os.path.join(rootdir, file)
         if os.path.isdir(d):
             ret.append(d)
-            allDirs(d)
+            ret += allDirs(d)
     return ret
 
 def pickImageLocale(locale_inp, drop_distance, drop_step, pick_count=10, ):
