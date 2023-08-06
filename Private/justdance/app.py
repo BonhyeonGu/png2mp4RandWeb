@@ -12,7 +12,7 @@ import pysftp
 namePattern = re.compile("(\d\d\d\d)-(\d\d)-(\d\d)_(\d\d)-(\d\d)-(\d\d)")
 
 def allDirs(rootdir):
-    ret = []
+    ret = [rootdir]
     for file in os.listdir(rootdir):
         d = os.path.join(rootdir, file)
         if os.path.isdir(d):
@@ -49,10 +49,6 @@ def pickImageLocale(locale_inp, drop_distance, drop_step, pick_count=90, ):
             if tuple[0] == i[0]:
                 tempRet.remove(tuple)
                 break
-
-    print(allDirsRet)
-    print(tempRet)
-    print(pick_count)        
     ret = random.sample(tempRet, pick_count)
 
     for i in ret:
