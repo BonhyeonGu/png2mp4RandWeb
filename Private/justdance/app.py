@@ -115,8 +115,8 @@ def resizeAndPutText(file_list, sw_tag, sw_date, w=1920, h=1080, splitSize=3):
                     timetag = datetime.fromtimestamp(tag).strftime('%Y.%m.%d %H:%M')
             else:
                 break
-            cv2.putText(base_pic,timetag,(1585//splitSize,1040//splitSize),cv2.FONT_HERSHEY_SCRIPT_COMPLEX,1,(0,0,0),4,cv2.LINE_AA)
-            cv2.putText(base_pic,timetag,(1585//splitSize,1040//splitSize),cv2.FONT_HERSHEY_SCRIPT_COMPLEX,1,(255,255,255),1,cv2.LINE_AA)
+            cv2.putText(base_pic,timetag,(1585//splitSize,1040//splitSize),cv2.FONT_HERSHEY_SCRIPT_COMPLEX,1//splitSize,(0,0,0),4,cv2.LINE_AA)
+            cv2.putText(base_pic,timetag,(1585//splitSize,1040//splitSize),cv2.FONT_HERSHEY_SCRIPT_COMPLEX,1//splitSize,(255,255,255),1,cv2.LINE_AA)
         cv2.imwrite('./' + file[0], base_pic)
 
 def merge(file_list, w=1920, h=1080, splitSize=3):
@@ -128,9 +128,9 @@ def merge(file_list, w=1920, h=1080, splitSize=3):
     retList = []
     while fidx != len(file_list):
         for i in range(splitSize):
-            pic = cv2.imread(file_list[fidx][0])
-            fidx += 1
             for j in range(splitSize):
+                pic = cv2.imread(file_list[fidx][0])
+                fidx += 1
                 result_image[i*h:(i+1)*h, j*w:(j+1)*w] = pic
         cv2.imwrite(f'./{nidx}.png', result_image)
         retList.append(f'./{nidx}.png')
