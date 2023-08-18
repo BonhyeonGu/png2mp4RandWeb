@@ -122,7 +122,7 @@ def resizeAndPutText(file_list, sw_tag, sw_date, w=1920, h=1080, splitSize=2, te
 def merge(file_list, w=1920, h=1080, splitSize=2):
     w = w // splitSize
     h = h // splitSize
-    result_image = np.zeros((h*splitSize, w*splitSize, splitSize), dtype=np.uint8)
+    result_image = np.zeros((h*splitSize, w*splitSize, 3), dtype=np.uint8)
     fidx = 0
     nidx = 0
     retList = []
