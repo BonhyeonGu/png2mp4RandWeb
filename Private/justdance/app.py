@@ -20,7 +20,7 @@ def allDirs(rootdir):
             ret += allDirs(d)
     return ret
 
-def pickImageLocale(locale_inp, drop_distance, drop_step, pick_count=90, ):
+def pickImageLocale(locale_inp, drop_distance, drop_step, pick_count=40, ):
     allDirsRet = allDirs(locale_inp)
     tempRet = []
     tempRetNoDel = []
@@ -73,7 +73,7 @@ def pickImageLocale(locale_inp, drop_distance, drop_step, pick_count=90, ):
                     f.write(str(nextdrops[i]) + '\n')
     return ret
 
-def resizeAndPutText(file_list, sw_tag, sw_date, w=1920, h=1080, splitSize=3, textSize=0.8, tx=360, ty=346):
+def resizeAndPutText(file_list, sw_tag, sw_date, w=1920, h=1080, splitSize=2, textSize=1, tx=360, ty=346):
     global namePattern
 
     size = (w//splitSize, h//splitSize)
@@ -119,7 +119,7 @@ def resizeAndPutText(file_list, sw_tag, sw_date, w=1920, h=1080, splitSize=3, te
             cv2.putText(base_pic,timetag,(tx,ty),cv2.FONT_HERSHEY_SCRIPT_COMPLEX,textSize,(255,255,255),1,cv2.LINE_AA)
         cv2.imwrite('./' + file[0], base_pic)
 
-def merge(file_list, w=1920, h=1080, splitSize=3):
+def merge(file_list, w=1920, h=1080, splitSize=2):
     w = w // splitSize
     h = h // splitSize
     result_image = np.zeros((h*splitSize, w*splitSize, splitSize), dtype=np.uint8)
