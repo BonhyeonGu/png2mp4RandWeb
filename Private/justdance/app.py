@@ -73,7 +73,7 @@ def pickImageLocale(locale_inp, drop_distance, drop_step, pick_count=40, ):
                     f.write(str(nextdrops[i]) + '\n')
     return ret
 
-def resizeAndPutText(file_list, sw_tag, sw_date, w=1920, h=1080, splitSize=2, textSize=1, tx=360, ty=346):
+def resizeAndPutText(file_list, sw_tag, sw_date, w=1920, h=1080, splitSize=2, textSize=1, tx=700, ty=400):
     global namePattern
 
     size = (w//splitSize, h//splitSize)
