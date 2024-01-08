@@ -12,10 +12,11 @@ import pysftp
 
 namePattern = re.compile("(\d\d\d\d)-(\d\d)-(\d\d)_(\d\d)-(\d\d)-(\d\d)")
 
-def allDirs(rootdir: str, localeBlacks: list) -> list :
+def allDirs(rootdir: str, localeBlacks: list) -> list:
     ret = []
     for dir in os.listdir(rootdir):
-        if dir in localeBlacks:
+        #포함 확인
+        if any(black in dir for black in localeBlacks):
             continue
         d = os.path.join(rootdir, dir)
         if os.path.isdir(d):
@@ -119,13 +120,18 @@ def resizeAndPutText(fileList: list, tagOn: bool, dateType: int, localeTags: dic
                 break
             #------------------------------------------------------
             for key in localeTags.keys():
+                print("!")
+                print(key)
+                print(file[1])
+                print("!")
+
                 if file[1] in key:
                     timetag += f" {localeTags[key]}"
                     break
             #------------------------------------------------------
             
-            cv2.putText(base_pic,timetag,(1585,1040),cv2.FONT_HERSHEY_SCRIPT_COMPLEX,1,(0,0,0),4,cv2.LINE_AA)
-            cv2.putText(base_pic,timetag,(1585,1040),cv2.FONT_HERSHEY_SCRIPT_COMPLEX,1,(255,255,255),1,cv2.LINE_AA)
+            cv2.putText(base_pic,timetag,(1582,1040),cv2.FONT_HERSHEY_SCRIPT_COMPLEX,1,(0,0,0),4,cv2.LINE_AA)
+            cv2.putText(base_pic,timetag,(1582,1040),cv2.FONT_HERSHEY_SCRIPT_COMPLEX,1,(255,255,255),1,cv2.LINE_AA)
         cv2.imwrite('./' + file[0], base_pic)
 
 def imagesToMp4(fileList):
