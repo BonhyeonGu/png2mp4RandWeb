@@ -118,9 +118,10 @@ def resizeAndPutText(fileList: list, tagOn: bool, dateType: int, localeTags: dic
                     timetag = datetime.fromtimestamp(tag).strftime('%Y.%m.%d %H:%M')
             else:
                 break
+            print("!")
             #------------------------------------------------------
             for key in localeTags.keys():
-                print("!")
+                
                 print(key)
                 print(file[1])
                 
@@ -132,7 +133,7 @@ def resizeAndPutText(fileList: list, tagOn: bool, dateType: int, localeTags: dic
                     print(timetag)
                     break
             #------------------------------------------------------
-                print("!")
+            print("!")
             cv2.putText(base_pic,timetag,(1582,1040),cv2.FONT_HERSHEY_SCRIPT_COMPLEX,1,(0,0,0),4,cv2.LINE_AA)
             cv2.putText(base_pic,timetag,(1582,1040),cv2.FONT_HERSHEY_SCRIPT_COMPLEX,1,(255,255,255),1,cv2.LINE_AA)
         cv2.imwrite('./' + file[0], base_pic)
