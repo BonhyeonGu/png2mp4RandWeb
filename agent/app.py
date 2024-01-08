@@ -119,7 +119,7 @@ def resizeAndPutText(fileList: list, tagOn: bool, dateType: int, localeTags: dic
                 break
             #------------------------------------------------------
             for key in localeTags.keys():
-                if file in key:
+                if file[1] in key:
                     timetag += f" {localeTags[key]}"
                     break
             #------------------------------------------------------
