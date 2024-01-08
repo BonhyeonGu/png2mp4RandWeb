@@ -174,7 +174,7 @@ def routine(localeInp: str, localeBlacks: list, localeTags: dict, dropD: int, dr
     print("")
 
 if __name__ == "__main__":
-    with open('./cloudflareUpdaterInp.json', 'r') as f:
+    with open('./png2mp4.json', 'r') as f:
         inp = json.load(f)
         interTime = inp["interTime"]
         localeInp = inp["locale_inp"]
