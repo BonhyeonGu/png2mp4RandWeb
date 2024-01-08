@@ -156,9 +156,7 @@ def routine(localeInp: str, localeBlacks: list, localeTags: dict, dropD: int, dr
     #print("%s end: ffmpeg" % (datetime.now().strftime('%Y-%m-%d %H:%M:%S')))
     maxIdx = 0
     for idx, file in enumerate(fileList):
-        print(file[1])
-        newPath = os.path.join(os.path.dirname(file[1]), f"{idx}.png")
-        os.rename(file[1], newPath)
+        os.rename(os.path.join("./", file[0]), os.path.join("./", f"{idx}.png"))
         maxIdx = idx
     #----------------------------------------------------------------------------------------------------------
     cnopts = pysftp.CnOpts()
