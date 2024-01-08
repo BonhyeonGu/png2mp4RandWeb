@@ -1,0 +1,27 @@
+{
+    "interTime" : 50,
+
+    "locale_inp" : "/source",
+    "locale_blacklist" : ["1", "2"],
+
+    "locale_tag" : {
+        "0" : "AB"
+    },
+
+    "tag_on" : true,
+    "date_type" : 2,
+    "mp4_on" : false,
+
+    "drop" : {
+        "distance" : 2,
+        "step" : 12
+    },
+
+    "sftp" : {
+        "host" : "1.2.3.4",
+        "port" : 1234,
+        "id" : "root",
+        "pw" : "???",
+        "locale" : "/usr/share/nginx/html/"
+    }
+}
