@@ -156,6 +156,7 @@ def routine(localeInp: str, localeBlacks: list, localeTags: dict, dropD: int, dr
     #print("%s end: ffmpeg" % (datetime.now().strftime('%Y-%m-%d %H:%M:%S')))
     maxIdx = 0
     for idx, path in enumerate(fileList):
+        print(path)
         newPath = os.path.join(os.path.dirname(path), f"{idx}.png")
         os.rename(path, newPath)
         maxIdx = idx
