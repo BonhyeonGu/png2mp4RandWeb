@@ -163,7 +163,7 @@ def routine(localeInp: str, localeBlacks: list, localeTags: dict, dropD: int, dr
     cnopts.hostkeys = None
     with pysftp.Connection(host, port=port, username=id, password=pw, cnopts=cnopts) as sftp:
         for i in range(maxIdx):
-            sftp.put(f"./{idx}.png", sftpOutLocale+f"{idx}.png")
+            sftp.put(f"./{i}.png", sftpOutLocale+f"{i}.png")
         if mp4On:
             sftp.put('./out0.mp4', sftpOutLocale+'out0.mp4')
     #----------------------------------------------------------------------------------------------------------
