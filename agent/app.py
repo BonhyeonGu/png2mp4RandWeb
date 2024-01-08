@@ -123,13 +123,16 @@ def resizeAndPutText(fileList: list, tagOn: bool, dateType: int, localeTags: dic
                 print("!")
                 print(key)
                 print(file[1])
-                print("!")
+                
 
                 if file[1] in key:
+                    print(timetag)
                     timetag += f" {localeTags[key]}"
+                    print(localeTags[key])
+                    print(timetag)
                     break
             #------------------------------------------------------
-            
+                print("!")
             cv2.putText(base_pic,timetag,(1582,1040),cv2.FONT_HERSHEY_SCRIPT_COMPLEX,1,(0,0,0),4,cv2.LINE_AA)
             cv2.putText(base_pic,timetag,(1582,1040),cv2.FONT_HERSHEY_SCRIPT_COMPLEX,1,(255,255,255),1,cv2.LINE_AA)
         cv2.imwrite('./' + file[0], base_pic)
