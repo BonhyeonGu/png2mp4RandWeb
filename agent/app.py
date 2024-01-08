@@ -155,10 +155,10 @@ def routine(localeInp: str, localeBlacks: list, localeTags: dict, dropD: int, dr
         imagesToMp4(fileList)
     #print("%s end: ffmpeg" % (datetime.now().strftime('%Y-%m-%d %H:%M:%S')))
     maxIdx = 0
-    for idx, path in enumerate(fileList):
-        print(path)
-        newPath = os.path.join(os.path.dirname(path), f"{idx}.png")
-        os.rename(path, newPath)
+    for idx, file in enumerate(fileList):
+        print(file[1])
+        newPath = os.path.join(os.path.dirname(file[1]), f"{idx}.png")
+        os.rename(file[1], newPath)
         maxIdx = idx
     #----------------------------------------------------------------------------------------------------------
     cnopts = pysftp.CnOpts()
