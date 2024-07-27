@@ -2,10 +2,10 @@
     "interTime" : 50,
 
     "locale_inp" : "/source",
-    "locale_blacklist" : ["1", "2"],
+    "locale_blacklist" : ["JUSTDANCE", "@eaDir"],
 
     "locale_tag" : {
-        "0" : "AB"
+        "0" : "NI"
     },
 
     "tag_on" : true,
@@ -19,9 +19,11 @@
 
     "sftp" : {
         "host" : "1.2.3.4",
-        "port" : 1234,
-        "id" : "root",
-        "pw" : "???",
-        "locale" : "/usr/share/nginx/html/"
-    }
+        "port" : 1111,
+        "id" : "aaaa",
+        "pw" : "bbbb",
+        "locale" : "/usr/share/"
+    },
+
+    "cmd" : []
 }

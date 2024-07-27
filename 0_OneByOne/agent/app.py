@@ -6,6 +6,7 @@ import numpy as np
 import cv2
 import random
 import re
+import subprocess
 
 import pysftp
 
@@ -196,7 +197,19 @@ if __name__ == "__main__":
         pw = inp["sftp"]["pw"]
         sftpOutLocale = inp["sftp"]["locale"]
 
+    for i in inp["cmd"]:
+        subprocess.run(i, shell=True, check=True, capture_output=True, text=True)
+
     while(True):
         sleep(interTime)
         if("START" in os.listdir('./cmd/')):
-            routine(localeInp, localeBlacks, localeTags, dropD, dropS, tagOn, dateType, mp4On, host, port, id, pw, sftpOutLocale)
+            try:
+                routine(localeInp, localeBlacks, localeTags, dropD, dropS, tagOn, dateType, mp4On, host, port, id, pw, sftpOutLocale)
+            except ValueError as ve:
+                print(f"Caught a ValueError: {ve}")
+            except TypeError as te:
+                print(f"Caught a TypeError: {te}")
+            except IndexError as ie:
+                print(f"Caught an IndexError: {ie}")
+            except Exception as e:
+                print(f"Caught an unexpected error: {e}")
