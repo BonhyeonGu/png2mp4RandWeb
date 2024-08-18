@@ -1,0 +1,11 @@
+version: "3"
+services:
+  pngPick:
+    tty: true
+    stdin_open: true
+    container_name: pngPick
+    build:
+      context: .
+      dockerfile: ./Dockerfile
+    environment:
+        TZ: "Asia/Seoul"
