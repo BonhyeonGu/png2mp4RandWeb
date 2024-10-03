@@ -27,6 +27,7 @@ def allDirs(rootdir: str, localeBlacks: list) -> list:
 
 def pickImageLocale(localeInp: str, localeBlacks: list, dropD: int, dropS: int, pick_count=10):
     allDirsRet = allDirs(localeInp, localeBlacks)
+    allDirsRet.append(localeInp)
     tempRet = []
     tempRetNoDel = []
     for dir in allDirsRet:
@@ -78,12 +79,10 @@ def pickImageLocale(localeInp: str, localeBlacks: list, dropD: int, dropS: int, 
     return ret
 
 def resizeAndPutText(fileList: list, tagOn: bool, dateType: int, localeTags: dict, w=1920, h=1080):
-    global namePattern
-
     size = (w, h)
     for file in fileList:
-        base_pic=np.zeros((size[1],size[0],3),np.uint8)
-        pic1=cv2.imread(file[1], cv2.IMREAD_COLOR)
+        base_pic = np.zeros((size[1],size[0],3),np.uint8)
+        pic1 = cv2.imread(file[1], cv2.IMREAD_COLOR)
         try:
             while(True):
                 h,w=pic1.shape[:2]
@@ -131,6 +130,60 @@ def resizeAndPutText(fileList: list, tagOn: bool, dateType: int, localeTags: dic
             #------------------------------------------------------
             cv2.putText(base_pic,timetag,(1528,1040),cv2.FONT_HERSHEY_SCRIPT_COMPLEX,1,(0,0,0),4,cv2.LINE_AA)
             cv2.putText(base_pic,timetag,(1528,1040),cv2.FONT_HERSHEY_SCRIPT_COMPLEX,1,(255,255,255),1,cv2.LINE_AA)
+        cv2.imwrite('./' + file[0], base_pic)
+
+def resizeAndPutText2(file_list, tagOn, dateType, localeTags: dict, w=1920, h=1080, splitSize=2, textSize=1, tx=650, ty=515):
+    size = (w//splitSize, h//splitSize)
+    for file in file_list:
+        base_pic = np.zeros((size[1],size[0],3),np.uint8)
+        pic1 = cv2.imread(file[1], cv2.IMREAD_COLOR)
+        try:
+            while(True):
+                h,w=pic1.shape[:2]
+                break
+        except:
+            print("치명적인 문제!")
+            print(file)
+            continue
+        ash = size[1]/h
+        asw = size[0]/w
+        if asw<ash:
+            sizeas = (int(w*asw), int(h*asw))
+        else:
+            sizeas = (int(w*ash), int(h*ash))
+        pic1 = cv2.resize(pic1,dsize=sizeas)
+        base_pic[int(size[1]/2-sizeas[1]/2):int(size[1]/2+sizeas[1]/2),
+        int(size[0]/2-sizeas[0]/2):int(size[0]/2+sizeas[0]/2),:]=pic1
+
+        if tagOn:
+            if dateType == 0:
+                tag = os.path.getctime(file[1])
+                timetag = datetime.fromtimestamp(tag).strftime('%Y.%m.%d %H:%M')
+            elif dateType == 1:
+                tag = os.path.getmtime(file[1])
+                timetag = datetime.fromtimestamp(tag).strftime('%Y.%m.%d %H:%M')
+            elif dateType == 2:
+                search_res = namePattern.search(file[0])
+                try:
+                    search_res = search_res.groups()
+                    timetag = '%s.%s.%s %s:%s'%(search_res[0], search_res[1], search_res[2], search_res[3], search_res[4])
+                except:
+                    tag = os.path.getmtime(file[1])
+                    timetag = datetime.fromtimestamp(tag).strftime('%Y.%m.%d %H:%M')
+            else:
+                break
+            #------------------------------------------------------
+            untagch = True
+            for key in localeTags.keys():
+                if key in file[1]:
+                    timetag += f" {localeTags[key]}"
+                    untagch = False
+                    break
+            if untagch:
+                timetag += "__"
+            #------------------------------------------------------
+            cv2.putText(base_pic,timetag,(tx,ty),cv2.FONT_HERSHEY_SCRIPT_COMPLEX,textSize,(0,0,0),4,cv2.LINE_AA)
+            cv2.putText(base_pic,timetag,(tx,ty),cv2.FONT_HERSHEY_SCRIPT_COMPLEX,textSize,(255,255,255),1,cv2.LINE_AA)
         cv2.imwrite('./' + file[0], base_pic)
 
 def merge(file_list, w=1920, h=1080, splitSize=2):
@@ -210,10 +263,10 @@ def routine(localeInp: str, localeBlacks: list, localeTags: dict, dropD: int, dr
     print("")
 
 def routineJD(localeInp: str, localeBlacks: list, localeTags: dict, dropD: int, dropS: int, tagOn: bool, dateType: str, mp4On: bool, host: str, port: int, id: str, pw: str, sftpOutLocale: str, ) -> None:
-    fileList = pickImageLocale(localeInp, localeBlacks, dropD, dropS)
+    fileList = pickImageLocale(localeInp, localeBlacks, dropD, dropS, 4)
     for i in range(len(fileList)):
         print(fileList[i][1])
-    resizeAndPutText(fileList, tagOn, dateType, localeTags)
+    resizeAndPutText2(fileList, tagOn, dateType, localeTags)
     #한개라는 가정
     merge2(fileList)
     #----------------------------------------------------------------------------------------------------------
