@@ -1,11 +1,14 @@
 version: "3"
 services:
-  pngPick:
+  pngpick:
     tty: true
     stdin_open: true
-    container_name: pngPick
+    container_name: pngpick
     build:
       context: .
       dockerfile: ./Dockerfile
     environment:
-        TZ: "Asia/Seoul"
+      TZ: "Asia/Seoul"
+    volumes:
+      - /volume1/homes/minfree/Photos/VRChat:/in 
+      - /volume1/web/images:/out

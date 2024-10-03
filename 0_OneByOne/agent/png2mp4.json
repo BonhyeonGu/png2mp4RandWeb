@@ -18,12 +18,14 @@
     },
 
     "sftp" : {
-        "host" : "1.2.3.4",
-        "port" : 1111,
-        "id" : "aaaa",
-        "pw" : "bbbb",
-        "locale" : "/usr/share/"
+        "host" : "10.0.0.115",
+        "port" : 12000,
+        "id" : "root",
+        "pw" : "!!!!qkqh106!!!!",
+        "locale" : "/usr/share/nginx/html/"
     },
 
-    "cmd" : []
+    "cmd" : [
+        "rclone mount remote:/_Share/_Lock/VRC /source --read-only --daemon"
+    ]
 }

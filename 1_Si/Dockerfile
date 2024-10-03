@@ -7,7 +7,7 @@ RUN apt-get update && apt-get upgrade -y && apt update
 
 RUN apt-get install -y git tzdata python3 python3-pip nano
 RUN apt install -y python3-opencv cron
-RUN pip3 install numpy pysftp
+RUN pip3 install numpy
 #Time-------------------------------------------------------
 RUN echo $TZ > /etc/timezone && \
     rm /etc/localtime && \
