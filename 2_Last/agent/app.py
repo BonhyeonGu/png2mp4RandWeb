@@ -70,9 +70,9 @@ def pickImageLocale(localeInp: str, localeBlacks: list, dropD: int, dropS: int, 
                     idxList.remove(j)
             idxRet.append(ri)
             #------------------------------------------------------------------------------------------
-            nowPick = tempRet[ri][1]  # [0]은 이름 [1]은 파일 경로
-            nextDropFiles[nowPick] = dropS
-            ret.append(nowPick)
+            # [0]은 이름 [1]은 파일 경로
+            nextDropFiles[tempRet[ri][1]] = dropS
+            ret.append(tempRet[ri][0], tempRet[ri][1])
         #------------------------------------------------------------------------------------------
         for key, value in dropFiles.items():
             if value > 1:
