@@ -126,13 +126,16 @@ def resizeAndPutText(fileList: list, tagOn: bool, dateType: int, localeTags: dic
                     untagch = False
                     break
             if untagch:
-                timetag += "__"
+                if "__ELSE__" in localeTags.keys():
+                    timetag += f' {localeTags["__ELSE__"]}'
+                else:
+                    timetag += " __"
             #------------------------------------------------------
             cv2.putText(base_pic,timetag,(1528,1040),cv2.FONT_HERSHEY_SCRIPT_COMPLEX,1,(0,0,0),4,cv2.LINE_AA)
             cv2.putText(base_pic,timetag,(1528,1040),cv2.FONT_HERSHEY_SCRIPT_COMPLEX,1,(255,255,255),1,cv2.LINE_AA)
         cv2.imwrite('./' + file[0], base_pic)
 
-def resizeAndPutText2(file_list, tagOn, dateType, localeTags: dict, w=1920, h=1080, splitSize=2, textSize=1, tx=650, ty=515):
+def resizeAndPutTextJD(file_list, tagOn, dateType, localeTags: dict, w=1920, h=1080, splitSize=2, textSize=1, tx=650, ty=515):
     size = (w//splitSize, h//splitSize)
     for file in file_list:
         base_pic = np.zeros((size[1],size[0],3),np.uint8)
@@ -266,7 +269,7 @@ def routineJD(localeInp: str, localeBlacks: list, localeTags: dict, dropD: int, 
     fileList = pickImageLocale(localeInp, localeBlacks, dropD, dropS, 4)
     for i in range(len(fileList)):
         print(fileList[i][1])
-    resizeAndPutText2(fileList, tagOn, dateType, localeTags)
+    resizeAndPutTextJD(fileList, tagOn, dateType, localeTags)
     #한개라는 가정
     merge2(fileList)
     #----------------------------------------------------------------------------------------------------------
