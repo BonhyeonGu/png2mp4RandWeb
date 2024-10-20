@@ -25,59 +25,64 @@ def allDirs(rootdir: str, localeBlacks: list) -> list:
             ret += allDirs(d, localeBlacks)
     return ret
 
+
 def pickImageLocale(localeInp: str, localeBlacks: list, dropD: int, dropS: int, pick_count=6):
     allDirsRet = allDirs(localeInp, localeBlacks)
     allDirsRet.append(localeInp)
+    #------------------------------------------------------------------------------------------
     tempRet = []
-    tempRetNoDel = []
-    
+    emmRet = []
+    #------------------------------------------------------------------------------------------
     for dir in allDirsRet:
         dir2fileName_list = os.listdir(dir)
         for dir2fileName in dir2fileName_list:
-            if dir2fileName.endswith(".png"):
-                tempRet.append((dir2fileName, dir+'/'+dir2fileName))
-                tempRetNoDel.append((dir2fileName, dir+'/'+dir2fileName))
-
+            if dir2fileName.lower().endswith(".png"):
+                tempRet.append((dir2fileName, os.path.join(dir, dir2fileName)))
+                emmRet.append((dir2fileName, os.path.join(dir, dir2fileName)))
+    #------------------------------------------------------------------------------------------
     try:
-        with open('dropcache.txt','r') as f:
-            drops = f.readlines()
+        with open('./dropcache.json', 'r') as f:
+            dropFiles = json.load(f)
     except FileNotFoundError:
-        drops = []
-    nextdrops = []
-    for i in drops:
-        i = i.split(',,,')
-        i[1] = int(i[1])
-        i[1] -= 1
-        if i[1] > 0:
-            nextdrops.append(i[0] + ',,,' + str(i[1]))
-        for tuple in tempRet:
-            if tuple[0] == i[0]:
-                tempRet.remove(tuple)
-                break
-
-    ret = random.sample(tempRet, pick_count)
-
-    for i in ret:
-        for j, (x, _) in enumerate(tempRetNoDel):
-            if x == i[0]:
-                idx = j
-        for j in range(dropD):
-            pIdx = idx - (j+1)
-            if pIdx < 0:
-                break
-            nextdrops.append(tempRetNoDel[pIdx][0] + ',,,' + str(dropS))
-        for j in range(dropD):
-            pIdx = idx + (j+1)
-            if pIdx > len(tempRetNoDel) - 1:
-                break
-            nextdrops.append(tempRetNoDel[pIdx][0] + ',,,' + str(dropS))
-        with open('dropcache.txt','w') as f:
-            for i in range(len(nextdrops)):
-                if i == len(nextdrops) - 1:
-                    f.write(str(nextdrops[i]))
-                else:
-                    f.write(str(nextdrops[i]) + '\n')
+        dropFiles = dict()
+    #------------------------------------------------------------------------------------------
+    nextDropFiles = dict()
+    #------------------------------------------------------------------------------------------
+    tempRet = [item for item in tempRet if item[1] not in dropFiles or dropFiles[item[1]] <= 1]
+    
+    if len(tempRet) < pick_count:
+        print("!!! : Small Result, Please edit Distance or Step")
+        nextDropFiles = dict()
+        ret = random.sample(emmRet, pick_count)
+    else:
+        idxList = list(range(len(tempRet)))
+        idxRet = []
+        ret = []
+        # 위에는 키 값으로 비교하지만 여기선 인덱스로 비교한다. 순서가 꼬일 수 있다는 것을 고려해야한다.
+        # 효율 없지만 순서가 지켜져야하기 때문에..
+        for i in range(pick_count):
+            ri = random.choice(idxList)
+            for j in range(ri, ri + dropD + 1):
+                if j in idxList:
+                    idxList.remove(j)
+            for j in range(ri - dropD, ri):
+                if j in idxList:
+                    idxList.remove(j)
+            idxRet.append(ri)
+            #------------------------------------------------------------------------------------------
+            nowPick = tempRet[ri][1]  # [0]은 이름 [1]은 파일 경로
+            nextDropFiles[nowPick] = dropS
+            ret.append(nowPick)
+        #------------------------------------------------------------------------------------------
+        for key, value in dropFiles.items():
+            if value > 1:
+                nextDropFiles[key] = value - 1
+        
+        with open('dropcache.json', 'w') as f:
+            json.dump(nextDropFiles, f, indent=4)
+        #------------------------------------------------------------------------------------------
     return ret
+
 
 def resizeAndPutText(fileList: list, tagOn: bool, dateType: int, localeTags: dict, w=1920, h=1080):
     size = (w, h)
@@ -136,6 +141,7 @@ def resizeAndPutText(fileList: list, tagOn: bool, dateType: int, localeTags: dic
             cv2.putText(base_pic,timetag,(1528,1040),cv2.FONT_HERSHEY_SCRIPT_COMPLEX,1,(255,255,255),1,cv2.LINE_AA)
         cv2.imwrite('./' + file[0], base_pic)
 
+
 def resizeAndPutTextJD(file_list, tagOn, dateType, localeTags: dict, w=1920, h=1080, splitSize=2, textSize=1, tx=650, ty=515):
     size = (w//splitSize, h//splitSize)
     for file in file_list:
@@ -184,11 +190,15 @@ def resizeAndPutTextJD(file_list, tagOn, dateType, localeTags: dict, w=1920, h=1
                     untagch = False
                     break
             if untagch:
-                timetag += "__"
+                if "__ELSE__" in localeTags.keys():
+                    timetag += f' {localeTags["__ELSE__"]}'
+                else:
+                    timetag += " __"
             #------------------------------------------------------
             cv2.putText(base_pic,timetag,(tx,ty),cv2.FONT_HERSHEY_SCRIPT_COMPLEX,textSize,(0,0,0),4,cv2.LINE_AA)
             cv2.putText(base_pic,timetag,(tx,ty),cv2.FONT_HERSHEY_SCRIPT_COMPLEX,textSize,(255,255,255),1,cv2.LINE_AA)
         cv2.imwrite('./' + file[0], base_pic)
+
 
 def merge(file_list, w=1920, h=1080, splitSize=2):
     w = w // splitSize
@@ -208,6 +218,7 @@ def merge(file_list, w=1920, h=1080, splitSize=2):
         nidx += 1
     return retList
 
+
 def merge2(file_list, w=1920, h=1080, splitSize=2):
     w = w // splitSize
     h = h // splitSize
@@ -222,6 +233,7 @@ def merge2(file_list, w=1920, h=1080, splitSize=2):
         cv2.imwrite(f'./jd.png', result_image)
     return
 
+
 def imagesToMp4(fileList):
     cmd = ""
     cmd += 'ffmpeg -loglevel fatal -y -loop 1 -t 10 -i %s -loop 1 -t 10 -i %s -loop 1 -t 10 -i %s -loop 1 -t 10 -i %s -loop 1 -t 10 -i %s ' % ("./" + fileList[0][0], "./" + fileList[1][0], "./" + fileList[2][0], "./" + fileList[3][0], "./" + fileList[4][0])
@@ -235,6 +247,7 @@ def imagesToMp4(fileList):
     cmd += '[8:v]fade=t=in:st=0:d=1,fade=t=out:st=9:d=1[v8]; [9:v]fade=t=in:st=0:d=1,fade=t=out:st=9:d=1[v9]; '
     cmd += '[v0][v1][v2][v3][v4][v5][v6][v7][v8][v9]concat=n=10:v=1:a=0,format=yuv420p[v]" -map "[v]" %s' % ('./' + "out0.mp4")
     os.system(cmd)
+
 
 def routine(localeInp: str, localeBlacks: list, localeTags: dict, dropD: int, dropS: int, tagOn: bool, dateType: str, mp4On: bool, host: str, port: int, id: str, pw: str, sftpOutLocale: str, ) -> None:
     print("%s start: routine" % (datetime.now().strftime('%Y-%m-%d %H:%M:%S')))
