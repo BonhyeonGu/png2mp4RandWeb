@@ -1,6 +1,6 @@
 <div align="center">
 
-<h1>png2mp4</h1>
+<h1>ImageToReady</h1>
 
 ![d](https://img.shields.io/badge/-Python-3776AB?style=flat-square&logo=python&logoColor=FFFFFF) ![d](https://img.shields.io/badge/-Ffmpeg-007808?style=flat-square&logo=ffmpeg&logoColor=FFFFFF)  
 
@@ -8,7 +8,7 @@
 
 ## 프로젝트 설명
 
-여러 이미지중 5개를 무작위 선정하여 슬라이드 쇼 영상 형태로 만든 후 웹에 올리는 프로젝트입니다.
+여러 이미지중 5개를 무작위 선정하여 슬라이드 쇼 영상 혹은 그대로의 형태로 준비 후 웹에 올리는 프로젝트입니다.
 사진 전부를 전송할 수 없으나 무작위로 출력하고 싶은 환경에서 적합합니다.
 
 프로젝트 디렉토리내 선택지 이후 docker-compose.yml를 사용할 수 있습니다.
