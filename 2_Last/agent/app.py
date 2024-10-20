@@ -25,11 +25,12 @@ def allDirs(rootdir: str, localeBlacks: list) -> list:
             ret += allDirs(d, localeBlacks)
     return ret
 
-def pickImageLocale(localeInp: str, localeBlacks: list, dropD: int, dropS: int, pick_count=10):
+def pickImageLocale(localeInp: str, localeBlacks: list, dropD: int, dropS: int, pick_count=6):
     allDirsRet = allDirs(localeInp, localeBlacks)
     allDirsRet.append(localeInp)
     tempRet = []
     tempRetNoDel = []
+    
     for dir in allDirsRet:
         dir2fileName_list = os.listdir(dir)
         for dir2fileName in dir2fileName_list:
@@ -317,6 +318,7 @@ if __name__ == "__main__":
                 swStart = False
             try:
                 if jdSw:
+                    
                     routineJD(jdInp, jdBlacklist, localeTags, jdDropD, jdDropS, tagOn, dateType, mp4On, host, port, id, pw, sftpOutLocale)
                 routine(localeInp, localeBlacks, localeTags, dropD, dropS, tagOn, dateType, mp4On, host, port, id, pw, sftpOutLocale)
 
