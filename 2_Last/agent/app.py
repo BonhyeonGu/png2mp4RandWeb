@@ -65,9 +65,11 @@ def pickImageLocale(localeInp: str, localeBlacks: list, dropD: int, dropS: int, 
             for j in range(ri, ri + dropD + 1):
                 if j in idxList:
                     idxList.remove(j)
+                    nextDropFiles[tempRet[j][1]] = dropS
             for j in range(ri - dropD, ri):
                 if j in idxList:
                     idxList.remove(j)
+                    nextDropFiles[tempRet[j][1]] = dropS
             idxRet.append(ri)
             #------------------------------------------------------------------------------------------
             # [0]은 이름 [1]은 파일 경로
