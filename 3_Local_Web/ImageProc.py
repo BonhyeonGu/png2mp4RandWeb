@@ -91,6 +91,7 @@ class ImageProc:
             #------------------------------------------------------
             cv2.putText(base_pic,timetag,(self.oSizeTX,self.oSizeTY),cv2.FONT_HERSHEY_SCRIPT_COMPLEX,1,(0,0,0),4,cv2.LINE_AA)
             cv2.putText(base_pic,timetag,(self.oSizeTX,self.oSizeTY),cv2.FONT_HERSHEY_SCRIPT_COMPLEX,1,(255,255,255),1,cv2.LINE_AA)
+        print(os.path.join(self.pDirCp, name))
         cv2.imwrite(os.path.join(self.pDirCp, name), base_pic)
 
 
@@ -107,10 +108,12 @@ class ImageProc:
         oris = allFilesSet(self.pDirOri, self.dirBlack, 'png')
 
         cMo = cps - oris
+        print(cMo)
         for fullName, size in cMo:
             os.system(f'rm -rf {fullName}')
             cps.remove((fullName, size))
         oMc = oris - cps
+        print(oMc)
         for fullName, size in oMc:
             self.image_ReSize_PutText_Copy(fullName, self.tagSw, self.tagType, self.pathToTag)
             cps.add((fullName, size))
