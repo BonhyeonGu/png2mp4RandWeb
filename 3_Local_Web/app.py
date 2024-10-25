@@ -11,7 +11,6 @@ selectedPhotos = []
     
 def update():
     global selectedPhotos
-    selectedPhotos = list()
 
     with open('/vol/setting.json', 'r') as f:
         set = json.load(f)
@@ -38,6 +37,7 @@ def update():
             swFirst = False
             tTime = datetime.now()
             ret = imgproc.pathRandPick()
+            selectedPhotos = list()
             for i in ret:
                 selectedPhotos.append(i)
             print(f"SUB -- {tTime}--> Pick : {procTime(tTime)}")
