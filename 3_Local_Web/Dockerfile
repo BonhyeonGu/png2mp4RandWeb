@@ -20,4 +20,5 @@ WORKDIR /root
 RUN git clone https://github.com/BonhyeonGu/ImageToReady p
 
 WORKDIR /root/p/3_Local_Web
+RUN rm -rf setting.json
 ENTRYPOINT ["/bin/sh", "-c" , "python3 app.py"]

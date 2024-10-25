@@ -37,7 +37,8 @@ def update():
             selectedPhotos.append(i)
 
         while checkMoreThanSec(lastPickTime, timePick):
-            time.sleep(10)
+            time.sleep(5)
+            lastPickTime = datetime.now()
         print(f"SUB -- Pick : {procTime(lastPickTime)}")
         lastPickTime = datetime.now()
 
