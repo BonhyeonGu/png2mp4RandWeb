@@ -6,7 +6,7 @@ ARG DEBIAN_FRONTEND=noninteractive
 RUN apt-get update && apt-get upgrade -y && apt update
 
 RUN apt-get install -y git tzdata python3 python3-pip nano
-RUN apt install -y python3-opencv cron
+RUN apt install -y python3-opencv
 RUN pip3 install numpy flask
 #Time-------------------------------------------------------
 RUN echo $TZ > /etc/timezone && \
