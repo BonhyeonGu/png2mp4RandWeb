@@ -1,0 +1,35 @@
+{
+    "sleep" : {
+        "cp" : 600,
+        "pick" : 50
+    },
+    
+    "pick_num" : 10,
+
+    "path" : {
+        "dir_original" : "/in",
+        "dir_volume" : "./vol/"
+    },
+    
+    "dirBlacklist" : ["JUSTDANCE", "@eaDir"],
+
+    "size" : {
+        "width" : 1920,
+        "height" : 1080,
+        "tx" : 1528,
+        "ty" : 1040
+    },
+
+    "tag" : {
+        "sw" : true,
+        "type" : 2,
+        "path_to_tag" : {
+            "0" : "AM"
+        }
+    },
+
+    "drop" : {
+        "distance" : 2,
+        "step" : 12
+    }
+}
