@@ -122,7 +122,7 @@ class ImageProc:
                 f.write(f"{item[0]},{item[1]}\n")
                 
         tTime = datetime.now()
-        print(f"SUB -- {tTime}--> Updating ----> Deleted : {numDel}, Created : {numNew}")
+        print(f"SUB -- {tTime}--> Updated ----> Deleted : {numDel}, Created : {numNew}", end="")
 
 
     def pathRandPick(self) -> list:

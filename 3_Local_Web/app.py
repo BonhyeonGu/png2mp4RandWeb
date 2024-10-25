@@ -29,7 +29,7 @@ def update():
         if checkMoreThanSec(lastUpdateTime, timeUP) or swFirst:
             tTime = datetime.now()
             imgproc.updateCpList()
-            print(f"SUB -- {tTime}--> Updated : {procTime(tTime)}")
+            print(f" >> {procTime(tTime)}")
             lastUpdateTime = datetime.now()
 
         # Pick check
@@ -40,7 +40,7 @@ def update():
             selectedPhotos = list()
             for i in ret:
                 selectedPhotos.append(i)
-            print(f"SUB -- {tTime}--> Picked : {procTime(tTime)}")
+            print(f"SUB -- {tTime}--> Picked >> {procTime(tTime)}")
             lastPickTime = datetime.now()
 
         time.sleep(5)
