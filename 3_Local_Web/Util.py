@@ -1,6 +1,23 @@
 from typing import List, Tuple
 import os
+from datetime import datetime
 
+
+def procTime(start_time) -> str:
+    now = datetime.now()
+    elapsed_time = now - start_time
+    formatted_time = str(elapsed_time).split('.')[0]  # 소수점 이하 제거
+    return f"{formatted_time}"
+
+
+def checkMoreThanSec(start_time, sec: int) -> bool:
+    now = datetime.now()
+    elapsed_seconds = (now - start_time).total_seconds()
+    
+    if elapsed_seconds > sec:
+        return True
+    else:
+        return False
 
 
 def allDirs(rootdir: str, localeBlacks: list) -> list:

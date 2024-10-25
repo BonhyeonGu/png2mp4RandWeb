@@ -7,7 +7,7 @@ RUN apt-get update && apt-get upgrade -y && apt update
 
 RUN apt-get install -y git tzdata python3 python3-pip nano
 RUN apt install -y python3-opencv cron
-RUN pip3 install numpy
+RUN pip3 install numpy flask
 #Time-------------------------------------------------------
 RUN echo $TZ > /etc/timezone && \
     rm /etc/localtime && \
@@ -17,10 +17,10 @@ RUN echo $TZ > /etc/timezone && \
 #-----------------------------------------------------------
 
 WORKDIR /root
-RUN git clone https://github.com/BonhyeonGu/png2mp4RandWeb p
+RUN git clone https://github.com/BonhyeonGu/ImageToReady p
 
-WORKDIR /root/p/1_Si
+WORKDIR /root/p/3_Local_Web
 RUN mkdir cmd
 RUN mkdir /source
-COPY ./png2mp4.json ./
+COPY ./setting.json ./
 ENTRYPOINT ["/bin/sh", "-c" , "python3 app.py"]

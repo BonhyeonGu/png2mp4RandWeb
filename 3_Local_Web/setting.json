@@ -1,7 +1,7 @@
 {
-    "sleep" : {
-        "cp" : 600,
-        "pick" : 50
+    "start_time" : {
+        "update" : 600,
+        "pick" : 60
     },
     
     "pick_num" : 10,
