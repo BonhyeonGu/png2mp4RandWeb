@@ -93,10 +93,13 @@ class ImageProc:
 
     def updateCpList(self) -> None:
         cps = set()
-        with open(self.pFileCpList, 'r') as f:
-            for line in f:
-                file_name, file_size = line.strip().split(',')
-                cps.add((file_name, int(file_size)))
+        try:
+            with open(self.pFileCpList, 'r') as f:
+                for line in f:
+                    file_name, file_size = line.strip().split(',')
+                    cps.add((file_name, int(file_size)))
+        except FileNotFoundError:
+            pass
         
         oris = allFilesSet(self.pDirOri, self.dirBlack, 'png')
 
