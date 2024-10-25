@@ -18,16 +18,13 @@ def update():
 
     timeUP = set["start_time"]["update"]
     timePick = set["start_time"]["pick"]
-
     imgproc = ImageProc(set)
-    
-    imgproc.updateCpList()
-    time.sleep(set["start_time"]["update"])
     
     swFirst = True
     lastUpdateTime = datetime.now()
     lastPickTime = datetime.now()
 
+    print('Start Daemon')
     while True:
         if checkMoreThanSec(lastUpdateTime, timeUP) or swFirst:
             swFirst = False

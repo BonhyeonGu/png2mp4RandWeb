@@ -20,5 +20,4 @@ WORKDIR /root
 RUN git clone https://github.com/BonhyeonGu/ImageToReady p
 
 WORKDIR /root/p/3_Local_Web
-RUN mkdir /source
 ENTRYPOINT ["/bin/sh", "-c" , "python3 app.py"]

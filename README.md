@@ -12,7 +12,9 @@
 사진 전부를 전송할 수 없으나 무작위로 출력하고 싶은 환경에서 적합합니다.
 
 프로젝트 디렉토리내 선택지 이후 docker-compose.yml를 사용할 수 있습니다.
-dockerfile과 동일한 경로에 locale.txt를 만들어주어야 동작합니다.
+dockerfile과 동일한 경로에 png2mp4.json를 만들어주어야 동작합니다.
+
+이하 리드미 개편중
 
 ## locale.txt
 

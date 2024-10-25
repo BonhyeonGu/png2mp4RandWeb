@@ -8,7 +8,7 @@
 
     "path" : {
         "dir_original" : "/in",
-        "dir_volume" : "./vol/"
+        "dir_volume" : "/vol/"
     },
     
     "dirBlacklist" : ["JUSTDANCE", "@eaDir"],
