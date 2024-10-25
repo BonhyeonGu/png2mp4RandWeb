@@ -5,8 +5,13 @@ import json
 from datetime import datetime
 from Util import procTime, checkMoreThanSec
 from ImageProc import ImageProc
+import logging
+
 
 app = Flask(__name__)
+log = logging.getLogger('werkzeug')
+log.setLevel(logging.ERROR)
+
 selectedPhotos = []
     
 def update():
