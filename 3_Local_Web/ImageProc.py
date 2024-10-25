@@ -29,6 +29,9 @@ class ImageProc:
         self.tagSw = dictArg['tag']['sw']
         self.tagType = dictArg['tag']['type']
         self.pathToTag = dictArg['tag']['path_to_tag']
+        
+        if not os.path.exists(self.pDirCp):
+            os.makedirs(self.pDirCp)
 
     
     def image_ReSize_PutText_Copy(self, fullName: str, tagOn: bool, dateType: int, localeTags: dict) -> None:
