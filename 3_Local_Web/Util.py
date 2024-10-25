@@ -6,7 +6,8 @@ from datetime import datetime
 def procTime(start_time) -> str:
     now = datetime.now()
     elapsed_time = now - start_time
-    formatted_time = str(elapsed_time).split('.')[0]  # 소수점 이하 제거
+    total_seconds = elapsed_time.total_seconds()
+    formatted_time = f"{total_seconds:.2f}"  # 소수점 둘째 자리까지 표시
     return f"{formatted_time}"
 
 
