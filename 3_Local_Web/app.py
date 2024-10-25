@@ -26,21 +26,23 @@ def update():
 
     print('SUB -- Start Daemon')
     while True:
+        # Update check
         if checkMoreThanSec(lastUpdateTime, timeUP) or swFirst:
             swFirst = False
             imgproc.updateCpList()
             print(f"SUB -- Update : {procTime(lastPickTime)}")
             lastUpdateTime = datetime.now()
 
-        ret = imgproc.pathRandPick()
-        for i in ret:
-            selectedPhotos.append(i)
+        # Pick check
+        if checkMoreThanSec(lastPickTime, timePick):
+            ret = imgproc.pathRandPick()
+            for i in ret:
+                selectedPhotos.append(i)
 
-        while checkMoreThanSec(lastPickTime, timePick):
-            time.sleep(5)
+            print(f"SUB -- Pick : {procTime(lastPickTime)}")
             lastPickTime = datetime.now()
-        print(f"SUB -- Pick : {procTime(lastPickTime)}")
-        lastPickTime = datetime.now()
+
+        time.sleep(5)
 
 
 t0 = threading.Thread(target=update)

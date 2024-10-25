@@ -107,10 +107,12 @@ class ImageProc:
         oris = allFilesSet(self.pDirOri, self.dirBlack, 'png')
 
         cMo = cps - oris
+        numDel = len(cMo)
         for fullName, size in cMo:
             os.system(f'rm -rf {fullName}')
             cps.remove((fullName, size))
         oMc = oris - cps
+        numNew = len(oMc)
         for fullName, size in oMc:
             self.image_ReSize_PutText_Copy(fullName, self.tagSw, self.tagType, self.pathToTag)
             cps.add((fullName, size))
@@ -118,6 +120,8 @@ class ImageProc:
         with open(self.pFileCpList, 'w') as f:
             for item in cps:
                 f.write(f"{item[0]},{item[1]}\n")
+
+        print(f"Deleted : {numDel}, Created : {numNew}")
 
 
     def pathRandPick(self) -> list:
