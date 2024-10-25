@@ -29,7 +29,7 @@ def update():
         if checkMoreThanSec(lastUpdateTime, timeUP) or swFirst:
             tTime = datetime.now()
             imgproc.updateCpList()
-            print(f"SUB -- {tTime}--> Update : {procTime(tTime)}")
+            print(f"SUB -- {tTime}--> Updated : {procTime(tTime)}")
             lastUpdateTime = datetime.now()
 
         # Pick check
@@ -40,7 +40,7 @@ def update():
             selectedPhotos = list()
             for i in ret:
                 selectedPhotos.append(i)
-            print(f"SUB -- {tTime}--> Pick : {procTime(tTime)}")
+            print(f"SUB -- {tTime}--> Picked : {procTime(tTime)}")
             lastPickTime = datetime.now()
 
         time.sleep(5)
@@ -59,4 +59,4 @@ def photo(index):
         return "Index out of range", 404
 
 if __name__ == '__main__':
-    app.run(host='0.0.0.0', debug=True)
+    app.run(host='0.0.0.0', debug=False)

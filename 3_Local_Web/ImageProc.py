@@ -120,8 +120,9 @@ class ImageProc:
         with open(self.pFileCpList, 'w') as f:
             for item in cps:
                 f.write(f"{item[0]},{item[1]}\n")
-
-        print(f"Deleted : {numDel}, Created : {numNew}")
+                
+        tTime = datetime.now()
+        print(f"SUB -- {tTime}--> Updating ----> Deleted : {numDel}, Created : {numNew}")
 
 
     def pathRandPick(self) -> list:
