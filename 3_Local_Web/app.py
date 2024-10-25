@@ -28,13 +28,13 @@ def update():
     while True:
         # Update check
         if checkMoreThanSec(lastUpdateTime, timeUP) or swFirst:
-            swFirst = False
             imgproc.updateCpList()
             print(f"SUB -- Update : {procTime(lastPickTime)}")
             lastUpdateTime = datetime.now()
 
         # Pick check
-        if checkMoreThanSec(lastPickTime, timePick):
+        if checkMoreThanSec(lastPickTime, timePick) or swFirst:
+            swFirst = False
             ret = imgproc.pathRandPick()
             for i in ret:
                 selectedPhotos.append(i)
