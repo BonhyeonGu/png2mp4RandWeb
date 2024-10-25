@@ -13,11 +13,11 @@ def update():
     global selectedPhotos
     selectedPhotos = list()
 
-    timeUP = set["start_time"]["update"]
-    timePick = set["start_time"]["pick"]
-
     with open('./setting.json', 'r') as f:
         set = json.load(f)
+
+    timeUP = set["start_time"]["update"]
+    timePick = set["start_time"]["pick"]
 
     imgproc = ImageProc(set)
     
