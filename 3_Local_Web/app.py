@@ -13,7 +13,7 @@ def update():
     global selectedPhotos
     selectedPhotos = list()
 
-    with open('./setting.json', 'r') as f:
+    with open('./vol/setting.json', 'r') as f:
         set = json.load(f)
 
     timeUP = set["start_time"]["update"]
