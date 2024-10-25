@@ -22,5 +22,4 @@ RUN git clone https://github.com/BonhyeonGu/ImageToReady p
 WORKDIR /root/p/3_Local_Web
 RUN mkdir cmd
 RUN mkdir /source
-COPY ./setting.json ./
 ENTRYPOINT ["/bin/sh", "-c" , "python3 app.py"]
