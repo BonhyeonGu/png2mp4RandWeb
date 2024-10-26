@@ -87,7 +87,10 @@ class ImageProc:
                     untagch = False
                     break
             if untagch:
-                timetag += "__"
+                if "__ELSE__" in localeTags.keys():
+                    timetag += f' {localeTags["__ELSE__"]}'
+                else:
+                    timetag += " __"
             #------------------------------------------------------
             cv2.putText(base_pic,timetag,(self.oSizeTX,self.oSizeTY),cv2.FONT_HERSHEY_SCRIPT_COMPLEX,1,(0,0,0),4,cv2.LINE_AA)
             cv2.putText(base_pic,timetag,(self.oSizeTX,self.oSizeTY),cv2.FONT_HERSHEY_SCRIPT_COMPLEX,1,(255,255,255),1,cv2.LINE_AA)

@@ -24,7 +24,8 @@
         "sw" : true,
         "type" : 2,
         "path_to_tag" : {
-            "0" : "AM"
+            "0" : "AM",
+            "__ELSE__" : "NB"
         }
     },
 
