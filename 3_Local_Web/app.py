@@ -29,26 +29,32 @@ def update():
     lastPickTime = datetime.now()
 
     print('SUB -- Start Daemon')
-    while True:
-        # Update check
-        if checkMoreThanSec(lastUpdateTime, timeUP) or swFirst:
-            tTime = datetime.now()
-            imgproc.updateCpList()
-            print(f" >> {procTime(tTime)}")
-            lastUpdateTime = datetime.now()
+    
+    # Flask 애플리케이션 컨텍스트 시작
+    with app.app_context():  
+        while True:
+            # Update check
+            if checkMoreThanSec(lastUpdateTime, timeUP) or swFirst:
+                tTime = datetime.now()
+                imgproc.updateCpList()
+                print(f" >> {procTime(tTime)}")
+                lastUpdateTime = datetime.now()
 
-        # Pick check
-        if checkMoreThanSec(lastPickTime, timePick) or swFirst:
-            swFirst = False
-            tTime = datetime.now()
-            ret = imgproc.pathRandPick()
-            selectedPhotos = list()
-            for i in ret:
-                selectedPhotos.append(i)
-            print(f"SUB -- {tTime}--> Picked >> {procTime(tTime)}")
-            lastPickTime = datetime.now()
+            # Pick check
+            if checkMoreThanSec(lastPickTime, timePick) or swFirst:
+                swFirst = False
+                tTime = datetime.now()
+                ret = imgproc.pathRandPick()
 
-        time.sleep(5)
+                # 리스트를 새로 할당하지 않고 내용을 교체
+                selectedPhotos.clear()  # 기존 리스트 내용을 제거
+                selectedPhotos.extend(ret)  # 새로운 항목 추가
+
+                print(f"SUB -- {tTime}--> Picked >> {procTime(tTime)}")
+                lastPickTime = datetime.now()
+
+            time.sleep(5)
+
 
 
 t0 = threading.Thread(target=update)
