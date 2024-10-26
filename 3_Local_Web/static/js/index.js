@@ -1,3 +1,5 @@
+// Created by applemint231
+
 let selectedPhotos = [];
 let currentIndex = 0;
 let totalImages = 0;
