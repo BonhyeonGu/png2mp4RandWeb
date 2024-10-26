@@ -1,4 +1,4 @@
-from flask import Flask, send_file
+from flask import Flask, send_file, render_template, jsonify
 import threading
 import time
 import json
@@ -55,6 +55,10 @@ t0 = threading.Thread(target=update)
 t0.daemon = True
 t0.start()
 
+@app.route('/api/images')
+def list():
+    return jsonify({'images': selectedPhotos})
+
 @app.route('/photo/<int:index>')
 def photo(index):
     if 0 <= index < len(selectedPhotos):
@@ -62,6 +66,10 @@ def photo(index):
         return send_file(img)
     else:
         return "Index out of range", 404
+    
+@app.route('/')
+def index():
+    return render_template('index.html')
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', debug=False)

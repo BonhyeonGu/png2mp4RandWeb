@@ -1,0 +1,211 @@
+/* CSS 변수 정의 */
+:root {
+  --primary-color: #20c997;
+  --primary-hover-color: #17a589;
+  --background-color: #f8f9fa;
+  --container-background: #ffffff;
+  --text-color: #212529;
+  --header-font: 'Montserrat', sans-serif;
+  --body-font: 'Roboto', sans-serif;
+  --border-radius: 12px;
+  --box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* 다크 모드 설정 */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --primary-color: #4a90e2;
+    --primary-hover-color: #357abd; 
+    --background-color: #121212;  /* 배경 색상 */
+    --container-background: #1e1e1e;  /* 컨테이너 배경 색상 */
+    --text-color: #e0e0e0;
+    --header-color: #b0bec5; 
+    --border-radius: 12px;
+    --box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);  /* 그림자 색상 변경 */
+  }
+  
+  /* 헤더 색상 */
+  .container__header {
+    color: var(--header-color); 
+  }
+  
+   /* 기본 버튼 스타일 */
+  .button {
+    background-color: var(--primary-color);  /* 버튼 기본 색상 */
+    color: #fff;  /* 버튼 텍스트 색상 */
+  }
+
+  .button:hover {
+    background-color: var(--primary-hover-color);
+  }
+
+  /* secondary 버튼 스타일 */
+  .button--secondary {
+    background-color: #ced4da; /* 다크 모드에서도 동일한 회색 */
+    color: #495057; /* 동일한 텍스트 색상 */
+    box-shadow: 0 2px 4px rgba(108, 117, 125, 0.2); /* 동일한 그림자 */
+  }
+
+  .button--secondary:hover {
+    background-color: #adb5bd; /* 동일한 호버 색상 */
+    box-shadow: 0 4px 8px rgba(108, 117, 125, 0.3); /* 동일한 호버 그림자 */
+  }
+}
+
+/* 전체 레이아웃 설정 */
+body, html {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  font-family: var(--body-font);
+  background-color: var(--background-color);
+  color: var(--text-color);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* 외부 컨테이너 */
+.outer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  width: 100%;
+  padding: 20px;
+  box-sizing: border-box;
+}
+
+/* 메인 컨테이너 */
+.container {
+  background-color: var(--container-background);
+  padding: 40px;
+  border-radius: var(--border-radius);
+  box-shadow: var(--box-shadow);
+  text-align: center;
+  max-width: 1024px; /* 데스크탑에서 컨테이너 크기 크게 설정 */
+  width: 100%;
+}
+
+/* 이미지 스타일 */
+.container__image img {
+  width: 100%;  /* 이미지를 컨테이너 너비에 맞게 설정 */
+  height: auto;
+  border-radius: var(--border-radius);
+  margin-bottom: 15px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.container__image img:hover {
+  transform: scale(1.05);
+  box-shadow: 0 8px 15px rgba(0, 0, 0, 0.15);
+}
+
+/* 헤더 스타일 */
+.container__header {
+  font-family: var(--header-font);
+  font-size: 28px; /* 헤더 크기 증가 */
+  font-weight: 700;
+  margin-bottom: 10px;
+  color: var(--primary-color);
+}
+
+/* 본문 텍스트 스타일 */
+.container__paragraph {
+  font-size: 18px; /* 본문 텍스트 크기 증가 */
+  margin-bottom: 20px;
+  color: var(--text-color);
+}
+
+/* 버튼 스타일 */
+.button {
+  display: inline-block;
+  padding: 14px 28px; /* 버튼 크기 증가 */
+  background-color: var(--primary-color);
+  color: #fff;
+  border: none;
+  border-radius: var(--border-radius);
+  font-size: 18px; /* 버튼 텍스트 크기 증가 */
+  font-family: var(--header-font);
+  cursor: pointer;
+  transition: background-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.button:hover {
+  background-color: var(--primary-hover-color);
+  box-shadow: 0 4px 8px rgba(0, 123, 255, 0.4);
+}
+
+.button:focus {
+  outline: none;
+  box-shadow: 0 0 0 4px rgba(0, 123, 255, 0.25);
+}
+
+/* 기본 버튼 스타일을 상속 */
+.button {
+  display: inline-block;
+  padding: 14px 28px;
+  font-family: var(--header-font);
+  font-size: 18px;
+  border-radius: var(--border-radius);
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* secondary 버튼 스타일 */
+.button--secondary {
+  background-color: #ced4da; /* 부드러운 회색 */
+  color: #495057; /* 덜 강조된 텍스트 색상 */
+  box-shadow: 0 2px 4px rgba(108, 117, 125, 0.2); /* 은은한 회색 그림자 */
+}
+
+.button--secondary:hover {
+  background-color: #adb5bd; /* 살짝 어두운 회색으로 호버 효과 */
+  box-shadow: 0 4px 8px rgba(108, 117, 125, 0.3); /* 호버 시 그림자 약간 진하게 */
+}
+
+.button--secondary:focus {
+  outline: none;
+  box-shadow: 0 0 0 4px rgba(173, 181, 189, 0.5); /* 부드러운 회색 포커스 */
+}
+
+/* 반응형 디자인 */
+@media (max-width: 768px) {
+  .container {
+    max-width: 90%; /* 태블릿 이하에서 컨테이너 크기 감소 */
+  }
+
+  .container__header {
+    font-size: 24px;
+  }
+
+  .container__paragraph {
+    font-size: 16px;
+  }
+
+  .button {
+    padding: 12px 24px;
+    font-size: 16px;
+  }
+}
+
+@media (max-width: 480px) {
+  .container {
+    max-width: 100%; /* 모바일에서 컨테이너 전체 너비 */
+    padding: 20px;
+  }
+
+  .container__header {
+    font-size: 20px;
+  }
+
+  .container__paragraph {
+    font-size: 14px;
+  }
+
+  .button {
+    padding: 10px 20px;
+    font-size: 14px;
+  }
+}
