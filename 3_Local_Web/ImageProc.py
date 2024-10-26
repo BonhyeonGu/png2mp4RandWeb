@@ -48,8 +48,8 @@ class ImageProc:
             while(True):
                 h,w=pic1.shape[:2]
                 break
-        except:
-            print("치명적인 문제!")
+        except Exception as e:
+            print(f"Error! : {type(e).__name__}", end="")
             print(fullName)
             return
         ash = size[1]/h
@@ -125,7 +125,7 @@ class ImageProc:
                 f.write(f"{item[0]},{item[1]}\n")
                 
         tTime = datetime.now()
-        print(f"SUB -- {tTime}--> Updated ----> Deleted : {numDel}, Created : {numNew}", end="")
+        print(f"SUB_{tTime}_Updated->Deleted:{numDel},Created:{numNew}", end="")
 
 
     def pathRandPick(self) -> list:

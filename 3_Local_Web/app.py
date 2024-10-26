@@ -1,4 +1,4 @@
-from flask import Flask, send_file, render_template, jsonify
+from flask import Flask, send_file, render_template, jsonify, make_response
 import threading
 import time
 import json
@@ -37,7 +37,7 @@ def update():
             if checkMoreThanSec(lastUpdateTime, timeUP) or swFirst:
                 tTime = datetime.now()
                 imgproc.updateCpList()
-                print(f" >> {procTime(tTime)}")
+                print(f">>{procTime(tTime)}")
                 lastUpdateTime = datetime.now()
 
             # Pick check
@@ -50,7 +50,12 @@ def update():
                 selectedPhotos.clear()  # 기존 리스트 내용을 제거
                 selectedPhotos.extend(ret)  # 새로운 항목 추가
 
-                print(f"SUB -- {tTime}--> Picked >> {procTime(tTime)}")
+                print(f"SUB_{tTime}_Picked->",end="")
+                n = 0
+                for i in ret:
+                    print(f"{i.split('.')[1][:3]} ", end="")
+                    n += 1
+                print(f">> {procTime(tTime)}")
                 lastPickTime = datetime.now()
 
             time.sleep(5)
@@ -69,9 +74,11 @@ def list():
 def photo(index):
     if 0 <= index < len(selectedPhotos):
         img = selectedPhotos[index]
-        return send_file(img)
-    else:
-        return "Index out of range", 404
+        response = make_response(send_file(img))
+        response.headers['Cache-Control'] = 'no-store, no-cache, must-revalidate, max-age=0'
+        response.headers['Pragma'] = 'no-cache'
+        response.headers['Expires'] = '0'
+        return response
     
 @app.route('/')
 def index():
