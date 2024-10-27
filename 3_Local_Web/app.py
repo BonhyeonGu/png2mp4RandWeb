@@ -74,7 +74,7 @@ def list():
 def photo(index):
     if 0 <= index < len(selectedPhotos):
         img = selectedPhotos[index]
-        response = make_response(send_file(img))
+        response = make_response(send_file(img, conditional=False))
         response.headers['Cache-Control'] = 'no-store, no-cache, must-revalidate, max-age=0'
         response.headers['Pragma'] = 'no-cache'
         response.headers['Expires'] = '0'
