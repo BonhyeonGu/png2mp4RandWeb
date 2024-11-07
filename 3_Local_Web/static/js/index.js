@@ -1,12 +1,29 @@
-// Created by applemint231
+const maxRetries = 3;
 
 let selectedPhotos = [];
 let currentIndex = 0;
 let totalImages = 0;
+let retryCount = 0;
 
 function updateImage(index) {
     const imgTag = document.getElementById('photo');
     const newImageUrl = `/photo/${index}?${new Date().getTime()}`;
+    
+    imgTag.onerror = function() {
+        if (retryCount < maxRetries) {
+            retryCount++;
+            console.warn(`Failed to load image. Retrying ${retryCount}/${maxRetries}...`);
+            setTimeout(() => updateImage(index), 1000);
+        } else {
+            console.error("Failed to load image after multiple attempts.");
+            retryCount = 0;
+        }
+    };
+    
+    imgTag.onload = function() {
+        retryCount = 0;
+    };
+    
     imgTag.setAttribute('src', newImageUrl);
 }
 
