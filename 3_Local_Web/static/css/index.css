@@ -17,20 +17,20 @@
 @media (prefers-color-scheme: dark) {
   :root {
     --primary-color: #4a90e2;
-    --primary-hover-color: #357abd; 
+    --primary-hover-color: #357abd;
     --background-color: #121212;  /* 배경 색상 */
     --container-background: #1e1e1e;  /* 컨테이너 배경 색상 */
     --text-color: #e0e0e0;
-    --header-color: #b0bec5; 
+    --header-color: #b0bec5;
     --border-radius: 12px;
     --box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);  /* 그림자 색상 변경 */
   }
-  
+
   /* 헤더 색상 */
   .container__header {
-    color: var(--header-color); 
+    color: var(--header-color);
   }
-  
+
    /* 기본 버튼 스타일 */
   .button {
     background-color: var(--primary-color);  /* 버튼 기본 색상 */
@@ -59,12 +59,14 @@ body, html {
   margin: 0;
   padding: 0;
   height: 100%;
+  min-height: 100vh;
   font-family: var(--body-font);
   background-color: var(--background-color);
   color: var(--text-color);
   display: flex;
   justify-content: center;
   align-items: center;
+  flex-direction: column;
 }
 
 /* 외부 컨테이너 */
@@ -72,7 +74,8 @@ body, html {
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 100%;
+  flex-grow: 1; /* this fills empty spaces */
+  /*height: 100%;*/
   width: 100%;
   padding: 20px;
   box-sizing: border-box;
@@ -170,6 +173,21 @@ body, html {
 .button--secondary:focus {
   outline: none;
   box-shadow: 0 0 0 4px rgba(173, 181, 189, 0.5); /* 부드러운 회색 포커스 */
+}
+
+.footer{
+        width: 100%;
+        text-align: center;
+        padding: 10px 0;
+        /*position: fixed;
+        bottom: 0;
+        left: 0;*/
+        background-color: var(--background-color);
+        margin-top: auto;
+}
+.footer__text{
+        font-size: 12px;
+        color: var(--text-color);
 }
 
 /* 반응형 디자인 */
