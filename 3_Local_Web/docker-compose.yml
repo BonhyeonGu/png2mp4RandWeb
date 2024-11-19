@@ -11,6 +11,7 @@ services:
       TZ: "Asia/Seoul"
     ports:
       - 18080:5000
+      - 2222:22
     volumes:
       - /volume1/homes/minfree/Photos/VRChat:/in 
       - /volume1/vol:/vol
