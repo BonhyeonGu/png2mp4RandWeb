@@ -3,28 +3,29 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>VRC</title>
+<title>VRC Photos</title>
+<link rel="icon" href="{{ url_for('static', filename='favicon.ico') }}">
 <link rel="stylesheet" href="{{ url_for('static', filename='css/index.css') }}">
 </head>
 <body>
+  <div class="layout">
     <div class="outer">
-        <div class="container">
-            <div class="container__content">
-                <div class="container__image">
-                    <!-- Created by applemint231 -->
-                    <img src="" id="photo" alt="Image Load Failed">
-                </div>
-                <h1 class="container__header">Thank You</h1>
-                <p class="container__paragraph">for visit me</p>
-                <button class="button button--secondary" id="prevButton">Prev</button>
-                <button class="button button--primary" id="changeButton">Next</button>
-            </div>
+      <div class="container">
+        <div class="container__image">
+          <img src="" id="photo" alt="Image Load Error">
         </div>
+            <h1 class="container__header">Thank You</h1>
+            <p class="container__paragraph">for visit me</p>
+        <div class="button-group">
+          <button class="button button--secondary" id="prevButton">Prev</button>
+          <button class="button button--primary" id="changeButton">Next</button>
+        </div>
+      </div>
     </div>
-        <footer class="footer">
-             <p class="footer__text">Developed by Nine_Bones at 9_Bon</p>
-        </footer>
-
+    <footer class="footer">
+      <p class="footer__text">Developed by Nine_Bones at 9_Bon</p>
+    </footer>
+  </div>
 
 <script src="{{ url_for('static', filename='js/index.js') }}"></script>
 </body>

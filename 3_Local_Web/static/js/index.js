@@ -37,6 +37,15 @@ function showPreviousImage() {
     updateImage(currentIndex);
 }
 
+function showImage(){
+    const imgTag = document.getElementById('photo');
+    const currentSrc = imgTag.getAttribute('src');
+    
+    // 새 탭에서 현재 이미지를 열기 (저장 목적)
+    const imageUrl = `${currentSrc}`;
+    window.open(imageUrl, '_blank');
+}
+
 function fetchImageList() {
     fetch('/api/images')
         .then(response => response.json())
@@ -52,7 +61,6 @@ function fetchImageList() {
 
 document.getElementById('changeButton').addEventListener('click', showNextImage);
 document.getElementById('prevButton').addEventListener('click', showPreviousImage);
-
-document.getElementById('photo').addEventListener('click', showNextImage);
+document.getElementById('photo').addEventListener('click', showImage);
 
 fetchImageList();
